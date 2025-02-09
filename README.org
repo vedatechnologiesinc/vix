@@ -1,0 +1,3 @@
+#+title: vix
+#+author: Rommel Martínez
+#+email: rommel.martinez@valmiz.com
