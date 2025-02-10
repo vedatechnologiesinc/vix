@@ -61,7 +61,7 @@
   "Check out the source code of the dwarffs flake"
   "vix clone dwarffs --dest dwarffs")
 
-(define-command flake check (fck)
+(define-command flake check (fh)
   "check whether the flake evaluates and run its tests"
   nil
   nil
