@@ -63,8 +63,8 @@ Nix command CMD from it."
         :options ,options
         :handler (if (null ,handler)
                      (lambda (cmd)
-                       (let ((args (or (clingon:command-arguments cmd) ""))
+                       (let ((args (clingon:command-arguments cmd))
                              (sub (or ,sname-name "")))
-                         (nrun sub ,(string-downcase fname-name) args)))
+                         (apply #'nrun (list sub ,(string-downcase fname-name) args))))
                      ,handler)
         :examples (mini-help ,@examples)))))
