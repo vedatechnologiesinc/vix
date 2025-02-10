@@ -8,24 +8,26 @@
 
 (in-package #:vix/src/profile)
 
-(def- install/options ()
-  "Returns the options for the `install' command."
-  (list
-   (clingon:make-option :flag
-                        :description "toggle Nixpkgs"
-                        :short-name #\n
-                        :long-name "nixpkgs"
-                        :required nil
-                        :key :opt-nixpkgs)))
+;; (def- install/options ()
+;;   "Returns the options for the `install' command."
+;;   (list
+;;    (clingon:make-option :flag
+;;                         :description "toggle Nixpkgs"
+;;                         :short-name #\n
+;;                         :long-name "nixpkgs"
+;;                         :required nil
+;;                         :key :opt-nixpkgs)))
 
-(def- install/handler (cmd)
-  "The handler for the `search' command"
-  (let ((args (clingon:command-arguments cmd))
-        (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs)))
-    (if opt-nixpkgs
-        (nrun "profile" "install" (pipe-args args))
-        (nrun "profile" "install" args))))
+;; (def- install/handler (cmd)
+;;   "The handler for the `search' command"
+;;   (let* ((args (clingon:command-arguments cmd))
+;;          (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
+;;          (final-args (cond (opt-nixpkgs (append '("profile" "install") (uiop:split-string (pipe-args args))))
+;;                            (t (append '("profile" "install") args)))))
+;;     (apply #'nrun final-args)))
 
+(define-options install)
+(define-handler install ("profile" "install"))
 (define-command profile install (i)
   "install a package into a profile"
   nil

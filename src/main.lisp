@@ -9,7 +9,8 @@
         #:vix/src/profile
         #:vix/src/flake
         #:vix/src/search
-        #:vix/src/develop))
+        #:vix/src/develop
+        #:vix/src/etc))
 
 (in-package #:vix/src/main)
 
@@ -78,7 +79,13 @@
 
    ;; develop
    (develop/command)
-   (make/command)))
+   (make/command)
+
+   ;; etc
+   (build/command)
+   (repl/command)
+   (run/command)
+   (bundle/command)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
