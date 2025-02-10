@@ -43,10 +43,10 @@ Nix command CMD from it."
 
 (defm define-options (name &rest args)
   "Return a list for defining options."
-  (let ((fname (read-from-string (cat (prin1-to-string name) "/OPTIONS")))
-        (description (fmt "Return the options for the `~A' command." name)))
-    `(def- ,fname ()
-       ,description
+  (let ((%fname (read-from-string (cat (prin1-to-string name) "/OPTIONS")))
+        (%description (fmt "Return the options for the `~A' command." name)))
+    `(def- ,%fname ()
+       ,%description
        (append
         (list (clingon:make-option :flag
                                    :description "toggle Nixpkgs"
@@ -58,10 +58,10 @@ Nix command CMD from it."
 
 (defm define-handler (name command)
   "Define a function for handling command."
-  (let ((fname (read-from-string (cat (prin1-to-string name) "/HANDLER")))
-        (description (fmt "The handler for the `~A' command." name)))
-    `(def- ,fname (cmd)
-       ,description
+  (let ((%fname (read-from-string (cat (prin1-to-string name) "/HANDLER")))
+        (%description (fmt "The handler for the `~A' command." name)))
+    `(def- ,%fname (cmd)
+       ,%description
        (let* ((args (clingon:command-arguments cmd))
               (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs))
               (final-args (cond (opt-nixpkgs (append ',command (uiop:split-string (pipe-args args))))
@@ -69,35 +69,34 @@ Nix command CMD from it."
          (apply #'nrun final-args)))))
 
 (defm define-command (sname fname aliases
-                      desc usage
-                      options handler
+                      desc
+                      usage options handler
                       &rest examples)
   "Return a function for CLINGON:MAKE-COMMAND."
-  (let* ((sname-name (when sname
-                       (string-downcase (prin1-to-string sname))))
-         (fname-name (prin1-to-string fname))
-         (aliases-name (when aliases
-                         (mapcar #'(lambda (alias)
-                                     (string-downcase (string alias)))
-                                 aliases)))
-         (suffix-name (cat fname-name "/COMMAND"))
-         (function-name (read-from-string suffix-name)))
-    `(def ,function-name ()
+  (let* ((%sname (when sname (prin1-downcase sname)))
+         (%fname (prin1-downcase fname))
+         (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
+         (%options (read-cat %fname "/options"))
+         (%handler-name (read-cat "#'" %fname "/handler"))
+         (%fn-name (read-cat %fname "/command")))
+    `(def ,%fn-name ()
        (clingon:make-command
-        :name ,(string-downcase fname-name)
-        :aliases ',aliases-name
+        :name ,%fname
+        :aliases ',%aliases
         :description ,desc
         :usage (if (null ,usage) "[option...]" ,usage)
-        :options ,options
-        :handler (if (null ,handler)
-                     (lambda (cmd)
-                       (let* ((args (clingon:command-arguments cmd))
-                              (sub ,sname-name)
-                              (final-args
-                                (if sub
-                                    (list sub ,(string-downcase fname-name) args)
-                                    (list ,(string-downcase fname-name) args))))
-                         (dbg final-args)
-                         (apply #'nrun final-args)))
-                     ,handler)
+        :options (if (eql t ,options)
+                     (,%options)
+                     ,options)
+        :handler (cond ((eql t ,handler) ,%handler-name)
+                       ((null ,handler)
+                        (lambda (cmd)
+                          (let* ((args (clingon:command-arguments cmd))
+                                 (sub ,%sname)
+                                 (final-args
+                                   (if sub
+                                       (list sub ,%fname args)
+                                       (list ,%fname args))))
+                            (apply #'nrun final-args))))
+                       (t ,handler))
         :examples (mini-help ,@examples)))))
