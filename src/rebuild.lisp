@@ -10,19 +10,44 @@
 
 (defv- *flake* (uiop:native-namestring (home "etc/dev/")))
 
+(def- rebuild/options ()
+  "Return the options for the `rebuild' command."
+  (list
+   (clingon:make-option :flag
+                        :description "toggle switch"
+                        :short-name #\s
+                        :long-name "switch"
+                        :required nil
+                        :key :opt-switch)
+   (clingon:make-option :flag
+                        :description "toggle upgrade"
+                        :short-name #\u
+                        :long-name "upgrade"
+                        :required nil
+                        :key :opt-upgrade)))
+
 (def- rebuild/handler (cmd)
-  "Handler for the rebuild command"
-  (let ((args (clingon:command-arguments cmd)))
+  "Handler for the `rebuild' command."
+  (let* ((args (clingon:command-arguments cmd))
+         (opt-switch (clingon:getopt cmd :opt-switch))
+         (opt-upgrade (when opt-switch
+                        (clingon:getopt cmd :opt-upgrade)))
+         (full-args (append args
+                            (when opt-switch '("switch"))
+                            (when opt-upgrade '("switch" "--upgrade")))))
     (uiop:os-cond
-     ((uiop:os-macosx-p) (run! `("darwin-rebuild" "--flake" ,*flake* ,@args)))
-     ((uiop:os-unix-p) (run! `("sudo" "nixos-rebuild" "--flake" ,*flake* ,@args)))
+     ((uiop:os-macosx-p)
+      (run! `("darwin-rebuild" "--flake" ,*flake* ,@full-args)))
+     ((uiop:os-unix-p)
+      (run! `("sudo" "nixos-rebuild" "--flake" ,*flake* ,@full-args)))
      (t (clingon:print-usage-and-exit cmd t)))))
 
-(define-command rebuild nil rebuild
+(define-command nil rebuild (rb)
   "rebuild the system"
-  nil
+  "[-s] [-su]"
+  (rebuild/options)
   #'rebuild/handler
   "Rebuild the system from flake"
   "vix rebuild"
   "Rebuild the system from flake and switch to it"
-  "vix rebuild switch")
+  "vix rebuild -s")

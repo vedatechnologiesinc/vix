@@ -9,7 +9,7 @@
         #:vix/src/profile
         #:vix/src/flake
         #:vix/src/search
-        #:vix/src/dev))
+        #:vix/src/develop))
 
 (in-package #:vix/src/main)
 
@@ -57,7 +57,7 @@
 
    ;; profile
    (install/command)
-   (uninstall/command)
+   (remove/command)
    (upgrade/command)
    (list/command)
    (rollback/command)
@@ -77,10 +77,8 @@
    (prefetch/command)
 
    ;; develop
-   (dev/command)
-   (command/command)
-   (make/command)
-   ))
+   (develop/command)
+   (make/command)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
