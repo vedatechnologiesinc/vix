@@ -21,15 +21,17 @@
 (def- search/handler (cmd)
   "The handler for the `search' command"
   (let ((args (clingon:command-arguments cmd))
-        (state (clingon:getopt cmd :opt-nixpkgs)))
-    (if state
+        (opt-nixpkgs (clingon:getopt cmd :opt-nixpkgs)))
+    (if opt-nixpkgs
         (nrun "search" "nixpkgs" (or-args args))
         (nrun "search" args))))
 
-(define-command nil search ()
+(define-command nil search (s)
   "search for packages"
   "[-n]"
   (search/options)
   #'search/handler
-  "Search in Nixpkgs for packages with `fire' or `fox' in name"
-  "vix search -n fire fox")
+  "Search in Nixpkgs for packages named `firefox'"
+  "vix search -n firefox"
+  "Search in Nixpkgs for packages underneath the attribute `gnome3'"
+  "vix search nixpkgs#gnome3 vala")

@@ -18,8 +18,12 @@
   "Use the command `nix' to run ARGS."
   (run! (append (list "nix") (flatten-list args))))
 
+(def pipe-args (args)
+  "Return a string from ARGS suitable for the `install' command."
+  (format nil "~{nixpkgs#~A~^ ~}" args))
+
 (def or-args (args)
-  "Return a string from ARGS suitable for `search'."
+  "Return a string from ARGS suitable for the `search' command."
   (format nil "~{~A~^|~}" args))
 
 (def mini-help (&rest args)
@@ -61,6 +65,6 @@ Nix command CMD from it."
                      (lambda (cmd)
                        (let ((args (or (clingon:command-arguments cmd) ""))
                              (sub (or ,sname-name "")))
-                         (nrun sub ,fname-name args)))
+                         (nrun sub ,(string-downcase fname-name) args)))
                      ,handler)
         :examples (mini-help ,@examples)))))
