@@ -8,22 +8,25 @@
 
 (in-package #:vix/src/flake)
 
-(define-command flake init init
+(define-command flake init (initialize)
   "create a flake in the current directory"
+  nil
   nil
   nil
   "Create a flake using the default template"
   "vix init")
 
-(define-command flake metadata metadata
+(define-command flake metadata (meta)
   "show flake metadata"
+  nil
   nil
   nil
   "Show flake metadata"
   "vix meta")
 
-(define-command flake show show
+(define-command flake show ()
   "show the outputs provided by a flake"
+  nil
   nil
   nil
   "Show the output attributes provided by the CWD flake"
@@ -31,15 +34,17 @@
   "List available templates"
   "vix show templates")
 
-(define-command flake update update
+(define-command flake update ()
   "update flake lock file"
+  nil
   nil
   nil
   "Update all inputs"
   "vix update")
 
-(define-command flake new new
+(define-command flake new ()
   "create a flake in the specified directory from a template"
+  nil
   nil
   nil
   "Create a flake in the directory hello"
@@ -48,29 +53,33 @@
   "vix new hello -t templates#haskell-hello"
   )
 
-(define-command flake clone clone
+(define-command flake clone ()
   "clone flake repository"
+  nil
   nil
   nil
   "Check out the source code of the dwarffs flake"
   "vix clone dwarffs --dest dwarffs")
 
-(define-command flake check check
+(define-command flake check ()
   "check whether the flake evaluates and run its tests"
+  nil
   nil
   nil
   "Evaluate the flake in the current directory, and build its checks"
   "vix check")
 
-(define-command flake archive archive
+(define-command flake archive ()
   "copy a flake and all its inputs to a store"
+  nil
   nil
   nil
   "Fetch the dwarffs flake to the local Nix store"
   "vix achive dwarffs")
 
-(define-command flake prefetch prefetch
+(define-command flake prefetch ()
   "download the flake source tree into the Nix store"
+  nil
   nil
   nil
   "Download the dwarffs flake"

@@ -18,11 +18,7 @@
   "Use the command `nix' to run ARGS."
   (run! (append (list "nix") (flatten-list args))))
 
-(def nixpkgs-args (args)
-  "Return a string from ARGS suitable for `install'."
-  (format nil "~{nixpkgs#~A~^ ~}" args))
-
-(def pipe-args (args)
+(def or-args (args)
   "Return a string from ARGS suitable for `search'."
   (format nil "~{~A~^|~}" args))
 
@@ -38,21 +34,33 @@ Nix command CMD from it."
   (let ((args (clingon:command-arguments cmd)))
     (funcall fn args)))
 
-(defm define-command (sname cname fname desc usage handler &rest examples)
+
+;;; entry point
+
+(defm define-command (sname fname aliases
+                      desc usage options handler
+                      &rest examples)
   "Return a function for CLINGON:MAKE-COMMAND."
-  (let* ((sname-name (string-downcase (prin1-to-string sname)))
-         (cname-name (if cname (string-downcase (prin1-to-string cname)) ""))
-         (command-name (prin1-to-string fname))
-         (suffix-name (cat command-name "/COMMAND"))
+  (let* ((sname-name (when sname
+                       (string-downcase (prin1-to-string sname))))
+         (fname-name (prin1-to-string fname))
+         (aliases-name (when aliases
+                         (mapcar #'(lambda (alias)
+                                     (string-downcase (string alias)))
+                                 aliases)))
+         (suffix-name (cat fname-name "/COMMAND"))
          (function-name (read-from-string suffix-name)))
     `(def ,function-name ()
        (clingon:make-command
-        :name ,(string-downcase command-name)
+        :name ,(string-downcase fname-name)
+        :aliases ',aliases-name
         :description ,desc
         :usage (if (null ,usage) "[option...]" ,usage)
+        :options ,options
         :handler (if (null ,handler)
                      (lambda (cmd)
-                       (let ((args (or (clingon:command-arguments cmd) "")))
-                         (nrun ,sname-name ,cname-name args)))
+                       (let ((args (or (clingon:command-arguments cmd) ""))
+                             (sub (or ,sname-name "")))
+                         (nrun sub ,fname-name args)))
                      ,handler)
         :examples (mini-help ,@examples)))))

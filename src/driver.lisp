@@ -9,7 +9,7 @@
                  #:vix/src/search
                  #:vix/src/profile
                  #:vix/src/flake
-                 #:vix/src/dev
+                 #:vix/src/develop
                  #:vix/src/main))
 
 (provide "vix")
