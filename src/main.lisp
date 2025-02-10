@@ -22,21 +22,11 @@
   "The name of the project.")
 
 (defk- +project-version+
-  "0.0.0"
+  "0.0.1"
   "The version number of the project.")
 
 
 ;;; fns
-
-(def- dot/command ()
-  "Return the command for the `dot' command."
-  (clingon:make-command
-   :name "dot"
-   :description "generate tree representation in Dot format"
-   :usage ""
-   :handler (lambda (cmd)
-              (let ((parent (clingon:command-parent cmd)))
-                (clingon:print-documentation :dot parent t)))))
 
 (def- top-level/options ()
   "Return the options for the top-level command."
@@ -49,43 +39,16 @@
 
 (def- top-level/sub-commands ()
   "Returns the list of sub-commands for the top-level command"
-  (list
-   ;; rebuild
-   (rebuild/command)
-
-   ;; search
-   (search/command)
-
-   ;; profile
-   (install/command)
-   (remove/command)
-   (upgrade/command)
-   (list/command)
-   (rollback/command)
-   (history/command)
-   (wipe-history/command)
-   (diff-closures/command)
-
-   ;; flake
-   (init/command)
-   (metadata/command)
-   (show/command)
-   (update/command)
-   (new/command)
-   (clone/command)
-   (check/command)
-   (archive/command)
-   (prefetch/command)
-
-   ;; develop
-   (develop/command)
-   (make/command)
-
-   ;; etc
-   (build/command)
-   (repl/command)
-   (run/command)
-   (bundle/command)))
+  (macrolet ((%list (&rest commands)
+               `(list
+                 ,@(loop :for command :in commands
+                         :for name := (read-cat command "/command")
+                         :collect `(,name)))))
+    (%list install remove upgrade list rollback history wipe-history diff-closures
+           rebuild search
+           init metadata show update new clone check archive prefetch
+           develop make
+           build run bundle copy edit eval fmt repl)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
@@ -102,6 +65,9 @@
    :handler #'top-level/handler
    :options (top-level/options)
    :sub-commands (top-level/sub-commands)))
+
+
+;;; entry point
 
 (def main (&rest args)
   "The main entry point of the program."
