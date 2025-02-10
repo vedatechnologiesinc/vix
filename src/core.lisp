@@ -3,7 +3,8 @@
 
 (uiop:define-package #:vix/src/core
   (:use #:cl
-        #:marie))
+        #:marie
+        #:vix/src/specials))
 
 (in-package #:vix/src/core)
 
@@ -30,7 +31,7 @@
   "Return a list suitable for the example usage of a command."
   (let ((parts (partition args 2)))
     (loop :for (desc usage) :in parts
-          :collect (cons (fmt "~A:" desc) usage))))
+          :collect (cons (fmt "~A:" desc) (fmt "~A ~A" +project-name+ usage)))))
 
 (def cmd-handler (cmd fn)
   "Define a function that parses the command arguments from CCMD and runs the

@@ -55,6 +55,6 @@
   (rebuild/options)
   #'rebuild/handler
   "Rebuild the system from the flake specified in `~/src/system/'"
-  "vix rebuild -s -f ~/src/system"
+  "rebuild -s -f ~/src/system"
   "Rebuild the system from flake and switch to it"
-  "vix rebuild -s")
+  "rebuild -s")

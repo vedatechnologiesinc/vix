@@ -32,6 +32,6 @@
   (search/options)
   #'search/handler
   "Search in Nixpkgs for packages named `firefox'"
-  "vix search -n firefox"
+  "search -n firefox"
   "Search in Nixpkgs for packages underneath the attribute `gnome3'"
-  "vix search nixpkgs#gnome3 vala")
+  "search nixpkgs#gnome3 vala")

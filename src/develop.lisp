@@ -30,9 +30,9 @@
   (develop/options)
   #'develop/handler
   "Start a dev shell with the build environment of the current directory"
-  "vix dev"
+  "dev"
   "Start a dev shell and run `make' inside"
-  "vix dev -c make")
+  "dev -c make")
 
 (def make/handler (cmd)
   "Handler for the `make' command."
@@ -45,4 +45,4 @@
   nil
   #'make/handler
   "Run `make' inside a dev shell"
-  "vix make")
+  "make")
