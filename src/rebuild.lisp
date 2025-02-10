@@ -13,6 +13,12 @@
 (def- rebuild/options ()
   "Return the options for the `rebuild' command."
   (list
+   (clingon:make-option :string
+                        :description "source flake"
+                        :short-name #\f
+                        :long-name "flake"
+                        :required nil
+                        :key :opt-flake)
    (clingon:make-option :flag
                         :description "toggle switch"
                         :short-name #\s
@@ -29,6 +35,7 @@
 (def- rebuild/handler (cmd)
   "Handler for the `rebuild' command."
   (let* ((args (clingon:command-arguments cmd))
+         (opt-flake (or (clingon:getopt cmd :opt-flake) *flake*))
          (opt-switch (clingon:getopt cmd :opt-switch))
          (opt-upgrade (when opt-switch
                         (clingon:getopt cmd :opt-upgrade)))
@@ -47,7 +54,7 @@
   "[-s] [-su]"
   (rebuild/options)
   #'rebuild/handler
-  "Rebuild the system from flake"
-  "vix rebuild"
+  "Rebuild the system from the flake specified in `~/src/system/'"
+  "vix rebuild -s -f ~/src/system"
   "Rebuild the system from flake and switch to it"
   "vix rebuild -s")
