@@ -10,7 +10,8 @@
         #:vix/src/flake
         #:vix/src/search
         #:vix/src/develop
-        #:vix/src/etc))
+        #:vix/src/etc
+        #:vix/src/registry))
 
 (in-package #:vix/src/main)
 
@@ -48,7 +49,8 @@
            rebuild search
            init metadata show update new clone check archive prefetch
            develop make
-           build run bundle copy edit eval fmt repl)))
+           build run bundle copy edit eval fmt repl why-depends
+           registry-add registry-remove registry-list registry-pin)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."

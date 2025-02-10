@@ -65,3 +65,19 @@
   nil nil nil
   "Evaluate some simple Nix expressions"
   "vix repl")
+
+(define-options path-info)
+(define-handler path-info ("path-info"))
+(define-command nil path-info (path)
+  "query information about store paths"
+  nil t t
+  "Print the store path produced by nixpkgs#hello"
+  "vix path -n hello")
+
+(define-options why-depends)
+(define-handler why-depends ("why-depends"))
+(define-command nil why-depends (why)
+  "show why a package has another package in its closure"
+  nil t t
+  "Show one path through the dependency graph leading from `hello' to `glibc'"
+  "vix why -n hello glibc")

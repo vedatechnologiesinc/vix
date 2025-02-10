@@ -11,6 +11,7 @@
                  #:vix/src/flake
                  #:vix/src/develop
                  #:vix/src/etc
+                 #:vix/src/registry
                  #:vix/src/main))
 
 (provide "vix")
