@@ -16,6 +16,7 @@
     :class :package-inferred-system
     :depends-on (#:marie
                  #:clingon
+                 #:vix/src/specials
                  #:vix/src/core
                  #:vix/src/rebuild
                  #:vix/src/search

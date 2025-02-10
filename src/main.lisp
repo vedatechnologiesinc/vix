@@ -4,6 +4,7 @@
 (uiop:define-package #:vix/src/main
   (:use #:cl
         #:marie
+        #:vix/src/specials
         #:vix/src/core
         #:vix/src/rebuild
         #:vix/src/profile
@@ -11,20 +12,10 @@
         #:vix/src/search
         #:vix/src/develop
         #:vix/src/etc
-        #:vix/src/registry))
+        #:vix/src/registry
+        #:vix/src/config))
 
 (in-package #:vix/src/main)
-
-
-;;; variables
-
-(defk- +project-name+
-  "vix"
-  "The name of the project.")
-
-(defk- +project-version+
-  "0.0.1"
-  "The version number of the project.")
 
 
 ;;; fns
@@ -50,7 +41,8 @@
            init metadata show update new clone check archive prefetch
            develop make
            build run bundle copy edit eval fmt repl why-depends
-           registry-add registry-remove registry-list registry-pin)))
+           registry-add registry-remove registry-list registry-pin
+           config-show config-check)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."
@@ -59,10 +51,10 @@
 (def- top-level/command ()
   "Return the top-level command"
   (clingon:make-command
-   :name "vix"
+   :name +project-name+
    :version +project-version+
-   :description "vix"
-   :long-description (fmt "Vix is a program for interacting with the Nix ecosystem")
+   :description +project-name+
+   :long-description (fmt "~:(~A~) is a program for interacting with the Nix ecosystem" +project-name+)
    :authors '("Rommel Martínez <ebzzry@icloud.com>")
    :handler #'top-level/handler
    :options (top-level/options)

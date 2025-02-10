@@ -14,9 +14,9 @@
   "build a derivation or fetch a store path"
   "[-n]" t t
   "Build the default package from the flake in the current directory"
-  "vix build"
+  "build"
   "Build `hello' and `cowsay' from Nixpkgs, leaving two result symlinks"
-  "vix build -n hello cowsay")
+  "build -n hello cowsay")
 
 (define-options run)
 (define-handler run ("run"))
@@ -24,7 +24,7 @@
   "run a Nix application"
   nil t t
   "Run `vim' from the `nixpkgs' flake"
-  "vix run -n vim")
+  "run -n vim")
 
 (define-options bundle)
 (define-handler bundle ("bundle"))
@@ -32,13 +32,13 @@
   "bundle an application so that it works outside of the Nix store"
   nil t t
   "Bundle `hello'"
-  "vix bundle -n vim")
+  "bundle -n vim")
 
 (define-command nil copy ()
   "start an interactive environment for evaluating Nix expressions"
   nil nil nil
   "Copy all store paths from a local binary cache"
-  "vix copy --all --from file:///tmp/cache")
+  "copy --all --from file:///tmp/cache")
 
 (define-options edit)
 (define-handler edit ("edit"))
@@ -46,25 +46,25 @@
   "open the Nix expression of a Nix package in $EDITOR"
   nil t t
   "Open the Nix expression of the `hello' package"
-  "vix edit -n hello")
+  "edit -n hello")
 
 (define-command nil eval ()
   "evaluate a Nix expression"
   nil nil nil
   "Evaluate a Nix expression given on the command line"
-  "vix eval --expr '1 + 2'")
+  "eval --expr '1 + 2'")
 
 (define-command nil fmt (format)
   "reformat your code in the standard style"
   nil nil nil
   "Format the current flake"
-  "vix fmt")
+  "fmt")
 
 (define-command nil repl ()
   "start an interactive environment for evaluating Nix expressions"
   nil nil nil
   "Evaluate some simple Nix expressions"
-  "vix repl")
+  "repl")
 
 (define-options path-info)
 (define-handler path-info ("path-info"))
@@ -72,7 +72,7 @@
   "query information about store paths"
   nil t t
   "Print the store path produced by nixpkgs#hello"
-  "vix path -n hello")
+  "path -n hello")
 
 (define-options why-depends)
 (define-handler why-depends ("why-depends"))
@@ -80,4 +80,4 @@
   "show why a package has another package in its closure"
   nil t t
   "Show one path through the dependency graph leading from `hello' to `glibc'"
-  "vix why -n hello glibc")
+  "why -n hello glibc")

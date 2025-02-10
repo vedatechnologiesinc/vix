@@ -1,5 +1,5 @@
 ;;;; -*- mode: lisp; syntax: common-lisp; base: 10; -*-
-;;;; flake.lisp --- direct nix flake commands
+;;;; config.lisp --- config the Nix settings
 
 (uiop:define-package #:vix/src/config
   (:use #:cl
