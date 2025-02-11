@@ -37,9 +37,9 @@
 (define-command flake new (fn)
   "create a flake in the specified directory from a template"
   nil nil nil
-  "Create a flake in the directory hello"
+  "Create a flake in the directory `hello'"
   "new hello"
-  "Create a flake in the directory hello using template haskell-hello"
+  "Create a flake in the directory `hello' using template haskell-hello"
   "new hello -t templates#haskell-hello")
 
 (define-command flake clone (fc)
