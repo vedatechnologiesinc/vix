@@ -24,7 +24,7 @@
   "Remove a package by name"
   "uninstall hello"
   "Remove all packages"
-  "uninstall --all")
+  "uninstall -- --all")
 
 (define-command profile upgrade (up)
   "upgrade packages using their most recent flake"
@@ -54,10 +54,10 @@
   "delete non-current versions of a profile"
   nil nil nil
   "Delete all versions of the default profile older than 30 days"
-  "wipe-history --profile /tmp/profile --older-than 30d")
+  "wipe-history -- --profile /tmp/profile --older-than 30d")
 
 (define-command profile diff-closures (diff)
   "show the closure difference between each version of a profile"
   nil nil nil
   "Show what changed between each version of the NixOS system profile"
-  "diff-closures --profile /nix/var/nix/profiles/system")
+  "diff-closures -- --profile /nix/var/nix/profiles/system")

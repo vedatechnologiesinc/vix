@@ -38,7 +38,7 @@
   "start an interactive environment for evaluating Nix expressions"
   nil nil nil
   "Copy all store paths from a local binary cache"
-  "copy --all --from file:///tmp/cache")
+  "copy -- --all --from file:///tmp/cache")
 
 (define-options edit)
 (define-handler edit ("edit"))
@@ -52,7 +52,7 @@
   "evaluate a Nix expression"
   nil nil nil
   "Evaluate a Nix expression given on the command line"
-  "eval --expr '1 + 2'")
+  "eval -- --expr '1 + 2'")
 
 (define-command nil fmt (format)
   "reformat your code in the standard style"
@@ -104,7 +104,7 @@
   "Run the daemon"
   "daemon"
   "Run the daemon and force all connections to be trusted"
-  "daemon --force-trusted")
+  "daemon -- --force-trusted")
 
 (define-options realisation-info)
 (define-handler realisation-info ("realisation" "info"))

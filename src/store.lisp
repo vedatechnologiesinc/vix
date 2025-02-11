@@ -49,7 +49,7 @@
   "serialise a store path to stdout in NAR format"
   nil nil nil
   "To get a NAR from the binary cache https://cache.nixos.org/"
-  "store-dump-path --store https://cache.nixos.org/ /nix/store/7crrmih8c52r8fbnqb933dxrsp44md93-glibc-2.25 > glibc.nar")
+  "store-dump-path -- --store https://cache.nixos.org/ /nix/store/7crrmih8c52r8fbnqb933dxrsp44md93-glibc-2.25 > glibc.nar")
 
 (define-command store gc^store-gc ()
   "perform garbage collection on a Nix store"
@@ -61,13 +61,13 @@
   "test whether a store can be accessed"
   nil nil nil
   "Test whether connecting to a remote Nix store via SSH works"
-  "store-info --store ssh://mac1")
+  "store-info -- --store ssh://mac1")
 
 (define-command store ls^store-ls ()
   "show information about a path in the Nix store"
   nil nil nil
   "To list the contents of a store path in a binary cache"
-  "store-ls --store https://cache.nixos.org/ --long --recursive /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10")
+  "store-ls -- --store https://cache.nixos.org/ --long --recursive /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10")
 
 (define-options store-make-content-addressed)
 (define-handler store-make-content-addressed ("store" "make-content-addressed"))
@@ -112,4 +112,4 @@
   "verify the integrity of store paths"
   nil nil nil
   "Verify the entire Nix store"
-  "store-verify --all")
+  "store-verify -- --all")

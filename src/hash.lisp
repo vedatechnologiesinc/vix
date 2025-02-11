@@ -26,4 +26,4 @@
   "convert between hash formats"
   nil t t
   "Convert a hash"
-  "hash-convert --hash-algo sha1 800d59cfcd3c05e900cb4e214be48f6b886a08df")
+  "hash-convert -- --hash-algo sha1 800d59cfcd3c05e900cb4e214be48f6b886a08df")

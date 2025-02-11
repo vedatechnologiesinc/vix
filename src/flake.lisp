@@ -46,7 +46,7 @@
   "clone flake repository"
   nil nil nil
   "Check out the source code of the dwarffs flake"
-  "clone dwarffs --dest dwarffs")
+  "clone dwarffs -- --dest dwarffs")
 
 (define-command flake check (fh)
   "check whether the flake evaluates and run its tests"
@@ -64,4 +64,4 @@
   "download the flake source tree into the Nix store"
   nil nil nil
   "Download the dwarffs flake"
-  "prefetch dwarffs --json")
+  "prefetch dwarffs")

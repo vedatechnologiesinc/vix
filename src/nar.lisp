@@ -24,4 +24,4 @@
   "show information about a path inside a NAR file"
   nil nil nil
   "To list a specific file in a NAR file"
-  "nar-ls --long ./hello.nar /bin/hello")
+  "nar-ls -- --long ./hello.nar /bin/hello")
