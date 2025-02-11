@@ -18,7 +18,7 @@
   "show flake metadata"
   nil nil nil
   "Show flake metadata"
-  "meta")
+  "metadata")
 
 (define-command flake show (fs)
   "show the outputs provided by a flake"
