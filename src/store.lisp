@@ -40,7 +40,7 @@
   "store-delete /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10")
 
 (define-command store diff-closures^store-diff-closures ()
-  "show what packages and versions were added and removed between two closures"
+  "show what packages and versions were added and removed"
   nil nil nil
   "Show what got added and removed between two versions of the NixOS system profile"
   "store-diff-closures /nix/var/nix/profiles/system-655-link /nix/var/nix/profiles/system-658-link")
