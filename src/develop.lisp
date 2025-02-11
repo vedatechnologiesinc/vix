@@ -21,7 +21,8 @@
   "Handler for the `develop' command."
   (let* ((args (clingon:command-arguments cmd))
          (opt-command (clingon:getopt cmd :opt-command))
-         (full-args (append args (list "--command" opt-command))))
+         (full-args (append args
+                            (when opt-command '("--command")))))
     (nrun "develop" full-args)))
 
 (define-command nil develop (dev)
