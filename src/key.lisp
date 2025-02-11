@@ -18,4 +18,4 @@
   "generate a secret key for signing store paths"
   nil nil nil
   "Generate a new secret key"
-  "key-generate --key-name cache.example.org-1 > ./secret-key")
+  "key-generate -- --key-name cache.example.org-1 > ./secret-key")
