@@ -29,20 +29,55 @@
                         :long-name "verbose"
                         :key :verbose)))
 
-(def- top-level/sub-commands ()
+(def top-level/sub-commands^main-commands ()
   "Returns the list of sub-commands for the top-level command"
-  (macrolet ((%list (&rest commands)
+  (macrolet ((%mac (&rest commands)
                `(list
                  ,@(loop :for command :in commands
                          :for name := (read-cat command "/command")
                          :collect `(,name)))))
-    (%list install remove upgrade list rollback history wipe-history diff-closures
-           rebuild search
-           init metadata show update new clone check archive prefetch
-           develop make
-           build run bundle copy edit eval fmt repl why-depends
-           registry-add registry-remove registry-list registry-pin
-           config-show config-check)))
+    (%mac install
+          remove
+          upgrade
+          list
+          rollback
+          history
+          wipe-history
+          diff-closures
+
+          init
+          metadata
+          show
+          update
+          new
+          clone
+          check
+          archive
+          prefetch
+
+          rebuild
+          search
+
+          develop
+          make
+
+          build
+          run
+          bundle
+          copy
+          edit
+          eval
+          fmt
+          repl
+          why-depends
+
+          registry-add
+          registry-pin
+          registry-remove
+          registry-list
+
+          config-show
+          config-check)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."

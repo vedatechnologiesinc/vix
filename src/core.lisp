@@ -69,35 +69,110 @@ Nix command CMD from it."
                                 (t (append ',command args)))))
          (apply #'nrun final-args)))))
 
-(defm define-command (sname fname aliases
+(def- command-name (command)
+  "Return the Clingon command name of COMMAND."
+  (clingon.command:command-name command))
+
+(def- command-names (commands)
+  "Return the names of the commands from COMMANDS."
+  (loop :for command :in commands
+        :collect (command-name command)))
+
+(def command-exists-p (command list)
+  "Return true if COMMAND is already present in LIST."
+  (find-if #'(lambda (cmd)
+               (string= (command-name command) cmd))
+           list))
+
+(def- split-name (symbol &key (separator '(#\^)))
+  "Return the split of SYMBOL by SEPARATOR."
+  (uiop:split-string (prin1-to-string symbol) :separator separator))
+
+(def- get-raw-name (symbol)
+  (destructuring-bind (main-name &optional alt-name)
+      (split-name symbol)
+    (declare (ignore alt-name))
+    (read-from-string main-name)))
+
+(def- get-name (symbol)
+  (destructuring-bind (main-name &optional alt-name)
+      (split-name symbol)
+    (declare (ignorable alt-name))
+    (if alt-name
+        (read-from-string alt-name)
+        (read-from-string main-name))))
+
+(defm define-command (group cmd aliases
                       desc
                       usage options handler
                       &rest examples)
   "Return a function for CLINGON:MAKE-COMMAND."
-  (let* ((%sname (when sname (prin1-downcase sname)))
-         (%fname (prin1-downcase fname))
+  (let* ((%group (when group (prin1-downcase group)))
+
+         (%cmd-raw (prin1-downcase (get-raw-name cmd)))
+         (%cmd (prin1-downcase (get-name cmd)))
+
+         (%fn (read-cat %cmd "/command"))
+
          (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
-         (%options (read-cat %fname "/options"))
-         (%handler-name (read-cat "#'" %fname "/handler"))
-         (%fn-name (read-cat %fname "/command")))
-    `(def ,%fn-name ()
+         (%options (read-cat %cmd "/options"))
+         (%handler (read-cat "#'" %cmd "/handler")))
+    `(def ,%fn ()
        (clingon:make-command
-        :name ,%fname
+        :name ,%cmd
         :aliases ',%aliases
         :description ,desc
         :usage (if (null ,usage) "[option...]" ,usage)
         :options (if (eql t ,options)
                      (,%options)
                      ,options)
-        :handler (cond ((eql t ,handler) ,%handler-name)
+        :handler (cond ((eql t ,handler) ,%handler)
                        ((null ,handler)
                         (lambda (cmd)
                           (let* ((args (clingon:command-arguments cmd))
-                                 (sub ,%sname)
+                                 (grp ,%group)
                                  (final-args
-                                   (if sub
-                                       (list sub ,%fname args)
-                                       (list ,%fname args))))
+                                   (if grp
+                                       (list grp ,%cmd-raw args)
+                                       (list ,%cmd-raw args))))
                             (apply #'nrun final-args))))
                        (t ,handler))
         :examples (mini-help ,@examples)))))
+
+;; (defm define-command (group cmd aliases
+;;                       desc
+;;                       usage options handler
+;;                       &rest examples)
+;;   "Return a function for CLINGON:MAKE-COMMAND."
+;;   (let* ((%group (when group (prin1-downcase group)))
+
+;;          (%cmd-raw (prin1-downcase cmd))
+
+;;          (%cmd (prin1-downcase cmd))
+
+;;          (%fn (read-cat %cmd "/command"))
+
+;;          (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
+;;          (%options (read-cat %cmd "/options"))
+;;          (%handler (read-cat "#'" %cmd "/handler")))
+;;     `(def ,%fn ()
+;;        (clingon:make-command
+;;         :name ,%cmd
+;;         :aliases ',%aliases
+;;         :description ,desc
+;;         :usage (if (null ,usage) "[option...]" ,usage)
+;;         :options (if (eql t ,options)
+;;                      (,%options)
+;;                      ,options)
+;;         :handler (cond ((eql t ,handler) ,%handler)
+;;                        ((null ,handler)
+;;                         (lambda (cmd)
+;;                           (let* ((args (clingon:command-arguments cmd))
+;;                                  (grp ,%group)
+;;                                  (final-args
+;;                                    (if grp
+;;                                        (list grp ,%cmd-arw args)
+;;                                        (list ,%cmd-raw args))))
+;;                             (apply #'nrun final-args))))
+;;                        (t ,handler))
+;;         :examples (mini-help ,@examples)))))
