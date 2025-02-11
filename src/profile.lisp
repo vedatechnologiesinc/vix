@@ -14,7 +14,7 @@
   "install a package into a profile"
   nil t t
   "Install a package from Nixpkgs"
-  "install nixpkgs#hello"
+  "install -n hello"
   "Install a package from a specific Nixpkgs revision"
   "install nixpkgs/d734#hello")
 
