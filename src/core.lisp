@@ -69,21 +69,6 @@ Nix command CMD from it."
                                 (t (append ',command args)))))
          (apply #'nrun final-args)))))
 
-(def- command-name (command)
-  "Return the Clingon command name of COMMAND."
-  (clingon.command:command-name command))
-
-(def- command-names (commands)
-  "Return the names of the commands from COMMANDS."
-  (loop :for command :in commands
-        :collect (command-name command)))
-
-(def command-exists-p (command list)
-  "Return true if COMMAND is already present in LIST."
-  (find-if #'(lambda (cmd)
-               (string= (command-name command) cmd))
-           list))
-
 (def- split-name (symbol &key (separator '(#\^)))
   "Return the split of SYMBOL by SEPARATOR."
   (uiop:split-string (prin1-to-string symbol) :separator separator))
