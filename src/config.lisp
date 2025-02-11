@@ -15,7 +15,7 @@
   "config-show")
 
 (define-command config check^config-check ()
-  "check your system for potential problems and print a PASS or FAIL for each check"
+  "check your system for potential problems"
   nil nil nil
   "Check for problems"
   "config-check")
