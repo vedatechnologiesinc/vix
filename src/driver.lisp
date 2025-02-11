@@ -14,6 +14,11 @@
                  #:vix/src/etc
                  #:vix/src/registry
                  #:vix/src/config
+                 #:vix/src/derivation
+                 #:vix/src/hash
+                 #:vix/src/key
+                 #:vix/src/nar
+                 #:vix/src/store
                  #:vix/src/main))
 
 (provide "vix")

@@ -7,13 +7,18 @@
         #:vix/src/specials
         #:vix/src/core
         #:vix/src/rebuild
+        #:vix/src/search
         #:vix/src/profile
         #:vix/src/flake
-        #:vix/src/search
         #:vix/src/develop
         #:vix/src/etc
         #:vix/src/registry
-        #:vix/src/config))
+        #:vix/src/config
+        #:vix/src/derivation
+        #:vix/src/hash
+        #:vix/src/key
+        #:vix/src/nar
+        #:vix/src/store))
 
 (in-package #:vix/src/main)
 
@@ -69,7 +74,14 @@
           eval
           fmt
           repl
+
+          path-info
           why-depends
+          env-shell
+          print-dev-env
+          daemon
+          realisation-info
+          upgrade-nix
 
           registry-add
           registry-pin
@@ -77,7 +89,39 @@
           registry-list
 
           config-show
-          config-check)))
+          config-check
+
+          derivation-add
+          derivation-show
+
+          hash-file
+          hash-path
+          hash-convert
+
+          key-convert
+          key-generate
+
+          nar-cat
+          nar-dump-path
+          nar-ls
+
+          store-add
+          store-cat
+          store-copy-log
+          store-copy-sigs
+          store-delete
+          store-diff-closures
+          store-dump-path
+          store-gc
+          store-info
+          store-ls
+          store-make-content-addressed
+          store-optimise
+          store-path-from-hash-part
+          store-prefetch-file
+          store-repair
+          store-sign
+          store-verify)))
 
 (def- top-level/handler (cmd)
   "The handler for the top-level command. Prints the command usage."

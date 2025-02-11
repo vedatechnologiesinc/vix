@@ -81,3 +81,41 @@
   nil t t
   "Show one path through the dependency graph leading from `hello' to `glibc'"
   "why -n hello glibc")
+
+(define-options env-shell)
+(define-handler env-shell ("env" "shell"))
+(define-command env shell^env-shell (shell)
+  "run a shell in which the specified packages are available"
+  nil t t
+  "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
+  "shell -n yt-dlp")
+
+(define-options print-dev-env)
+(define-handler print-dev-env ("print-dev-env"))
+(define-command nil print-dev-env (print)
+  "print shell code of derivation"
+  nil t t
+  "Get the build environment"
+  "print -n hello")
+
+(define-command nil daemon ()
+  "daemon to perform store operations on behalf of non-root clients"
+  nil nil nil
+  "Run the daemon"
+  "daemon"
+  "Run the daemon and force all connections to be trusted"
+  "daemon --force-trusted")
+
+(define-options realisation-info)
+(define-handler realisation-info ("realisation" "info"))
+(define-command realisation info^realisation-info ()
+  "manipulate a Nix realisation"
+  nil t t
+  "Show some information about the realisation of the hello package"
+  "realisation-info -n hello")
+
+(define-command nil upgrade-nix ()
+  "upgrade Nix to the latest stable version"
+  nil nil nil
+  "Upgrade Nix to the stable version declared in Nixpkgs"
+  "upgrade-nix")
