@@ -258,18 +258,31 @@ COMMANDS:
 | vix fu                                             | ✔️   |
 
 ** New (fn)
-+ create a flake in the specified directory from a template
-| Main Commands                            | Test                            |
-|------------------------------------------+---------------------------------|
-| vix new --help                           | ✔️                              |
-| vix new hello                            | ✔️                              |
-| vix new hello -t templates#haskell-hello | Unknown option -t of kind SHORT |
+Typo in help command: it should have -- before -t
+#+begin_Src shell
+$ vix fn --help
+...
 
-| Alias                                   | Test                            |
-|-----------------------------------------+---------------------------------|
-| vix fn --help                           | ✔️                              |
-| vix fn hello                            | ✔️                              |
-| vix fn hello -t templates#haskell-hello | Unknown option -t of kind SHORT |
+Create a flake in the directory `hello':
+
+    vix new hello
+
+Create a flake in the directory `hello' using template haskell-hello:
+
+    vix new hello -t templates#haskell-hello)
+#+end_Src
++ create a flake in the specified directory from a template
+| Main Commands                               | Test |
+|---------------------------------------------+------|
+| vix new --help                              | ✔️   |
+| vix new hello                               | ✔️   |
+| vix new hello -- -t templates#haskell-hello | ✔️   |
+
+| Alias                                      | Test |
+|--------------------------------------------+------|
+| vix fn --help                              | ✔️   |
+| vix fn hello                               | ✔️   |
+| vix fn hello -- -t templates#haskell-hello | ✔️   |
 
 ** Clone (fc)
 + clone flake repository
