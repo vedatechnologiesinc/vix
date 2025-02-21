@@ -12,8 +12,7 @@
   "Define a function for handling the `flake init' command."
   (let ((args (clingon:command-arguments cmd)))
     (with-output-file (out #P"flake.nix")
-      (format out "
-{
+      (format out "{
   description = \"A flake\";
   inputs = {
     nixpkgs.url = \"github:nixos/nixpkgs/nixpkgs-unstable\";
@@ -29,8 +28,7 @@
 }
 "))
     (with-output-file (out #P"apps.nix")
-      (format out "
-{ pkgs }: rec {
+      (format out "{ pkgs }: rec {
   hello = {
     type = \"app\";
     program = \"${pkgs.hello}/bin/hello\";
@@ -39,8 +37,7 @@
 }
 "))
     (with-output-file (out #P"shells.nix")
-      (format out "
-{ nixpkgs, pkgs, ... }:
+      (format out "{ nixpkgs, pkgs, ... }:
 with pkgs; rec {
   hello = mkShell { buildInputs = [ pkgs.hello ]; };
   default = hello;
