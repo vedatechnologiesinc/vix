@@ -30,7 +30,7 @@
   "Run `make' inside a dev shell"
   "m")
 
-(define-command nil search (s)
+(define-command nil search ()
   "search for packages"
   "[-n|<flake>] <package>..."
   t
@@ -40,7 +40,7 @@
       (apply #'exe final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
-  "s nixpkgs firefox")
+  "search nixpkgs firefox")
 
 (define-command nil find (fd)
   "search for packages in the `nixpkgs' flake"
@@ -199,19 +199,18 @@
   "Upgrade Nix to the stable version declared in `nixpkgs' flake"
   "upgrade")
 
-(define-command nil collect-garbage (gc)
+(define-command nil collect-garbage (g)
   "run the garbage collector"
   nil
   nil
   (lambda (cmd)
     (let ((args (clingon:command-arguments cmd)))
-      (dbg args)
       (exe! `("nix-collect-garbage" ,@args))))
   nil
   "Garbage collect"
   "gc"
   "Gargage collect and delete old versions"
-  "gc -- -d")
+  "g -- -d")
 
 (define-command nil zsh-completions (zsh)
   "generate the Zsh completion script"

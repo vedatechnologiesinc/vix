@@ -8,23 +8,23 @@
 
 (in-package #:vix/src/key)
 
-(define-command key convert (c)
+(define-command key convert (con)
   "generate a public key for verifying store paths"
   "<key>"
   nil
   t
   nil
   "Convert a secret key to a public key"
-  "k c foo")
+  "k con foo")
 
-(define-command key generate (g)
+(define-command key generate (gen)
   "generate a secret key for signing store paths"
   ""
   nil
   t
   nil
   "Generate a new secret key"
-  "k g -- --key-name cache.example.org-1 > ./secret-key")
+  "k gen -- --key-name cache.example.org-1 > ./secret-key")
 
 (define-command nil key (k)
   "generate and convert Nix signing keys"

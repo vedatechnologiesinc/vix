@@ -26,7 +26,7 @@
   "Show the contents of a file in a binary cache"
   "s c --store https://cache.nixos.org/ /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10/bin/hello")
 
-(define-command store copy-log (y)
+(define-command store copy-log ()
   "copy build logs between Nix stores"
   "<location>"
   nil
@@ -36,7 +36,7 @@
   "s y --from https://cache.nixos.org --eval-store auto nixpkgs#hello")
 
 ;; TODO add example(s)
-(define-command store copy-sigs (i)
+(define-command store copy-sigs ()
   "copy store path signatures from substituters"
   ""
   nil
@@ -81,7 +81,7 @@
   "Delete unreachable paths in the Nix store"
   "s g")
 
-(define-command store info (o)
+(define-command store info (i)
   "test whether a store can be accessed"
   "<path>"
   nil
@@ -108,7 +108,7 @@
   "Create a content-addressed representation of the closure of `hello'"
   "s m nixpkgs#hello")
 
-(define-command store optimise (t)
+(define-command store optimise (o)
   "replace identical files in the store by hard links"
   ""
   nil
@@ -163,7 +163,7 @@
   "Verify the entire Nix store"
   "store-verify -- --all")
 
-(define-command nil store (o)
+(define-command nil store (s)
   "manipulate the Nix store"
   "<command>"
   nil
