@@ -16,8 +16,8 @@
   nil
   "Run a dev shell"
   "d"
-  "Run a dev shell and run `make' inside"
-  "d -- -c make")
+  "Run a dev shell and run `htop' inside"
+  "d -- -c htop")
 
 (define-command nil make (m)
   "run `make' inside a dev shell"
@@ -29,6 +29,17 @@
   nil
   "Run `make' inside a dev shell"
   "m")
+
+(define-command nil command (c)
+  "run a command inside a dev shell"
+  "command..."
+  nil
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "develop" "--command" args)))
+  nil
+  "Run `ncdu' inside a dev shell"
+  "c ncdu")
 
 (define-command nil search ()
   "search for packages"
@@ -83,14 +94,14 @@
   "Bundle `hello'"
   "u nixpkgs#vim")
 
-(define-command nil copy (c)
+(define-command nil copy (y)
   "start an interactive environment for evaluating Nix expressions"
   nil
   nil
   t
   nil
   "Copy all store paths from a local binary cache"
-  "c -- --all --from file:///tmp/cache")
+  "y -- --all --from file:///tmp/cache")
 
 (define-command nil edit (ed)
   "open the Nix expression of a Nix package in $EDITOR"
@@ -112,7 +123,7 @@
   "Print the store path of the `hello' package"
   "e -- --raw nixpkgs#hello")
 
-(define-command nil fmt ()
+(define-command nil fmt (format)
   "reformat your code in the standard style"
   nil
   nil

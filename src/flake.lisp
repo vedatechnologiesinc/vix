@@ -39,8 +39,8 @@
     (with-output-file (out #P"shells.nix")
       (format out "{ nixpkgs, pkgs, ... }:
 with pkgs; rec {
-  hello = mkShell { buildInputs = [ pkgs.hello ]; };
-  default = hello;
+  shell = mkShell { buildInputs = [ hello ]; };
+  default = shell;
 }
 "))))
 

@@ -29,6 +29,7 @@
      flake
      develop
      make
+     command
      rebuild
      search
      find

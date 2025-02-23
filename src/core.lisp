@@ -36,7 +36,7 @@
   "Define a function that parses the command arguments from CMD and runs the
 command CMD from it."
   (let ((args (clingon:command-arguments cmd)))
-    (funcall fn args)))
+    [fn args]))
 
 (def- prefix-command (prefix cmd)
   "Return a prefix string for CMD if PREFIX is true."
