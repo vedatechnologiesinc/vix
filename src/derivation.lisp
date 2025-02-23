@@ -24,7 +24,7 @@
   t
   nil
   "Show the `hello' derivation"
-  "v s nixpkgs#hello")
+  "v s n#hello")
 
 (define-command nil derivation (v)
   "work with derivations"

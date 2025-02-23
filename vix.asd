@@ -8,6 +8,7 @@
     :author "Rommel Martínez <ebzzry@icloud.com>"
     :class :package-inferred-system
     :depends-on (#:marie
+                 #:cl-ppcre
                  #:clingon
                  #:vix/src/specials
                  #:vix/src/core

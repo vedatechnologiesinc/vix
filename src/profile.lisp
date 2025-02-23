@@ -15,7 +15,7 @@
   t
   nil
   "Install a package from Nixpkgs"
-  "p i nixpkgs#hello"
+  "p i n#hello"
   "Install a package from a specific Nixpkgs revision"
   "p i nixpkgs/d734#hello")
 

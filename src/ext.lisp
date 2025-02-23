@@ -74,7 +74,7 @@
   "Build the default package from the flake in the current directory"
   "b"
   "Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks"
-  "b nixpkgs#hello nixpkgs#cowsay")
+  "b n#hello n#cowsay")
 
 (define-command nil run ()
   "run a Nix application"
@@ -83,7 +83,7 @@
   t
   nil
   "Run `vim' from the `nixpkgs' flake"
-  "run nixpkgs#vim")
+  "run n#vim")
 
 (define-command nil bundle (u)
   "bundle an application so that it works outside of the Nix store"
@@ -92,7 +92,7 @@
   t
   nil
   "Bundle `hello'"
-  "u nixpkgs#vim")
+  "u n#vim")
 
 (define-command nil copy (y)
   "start an interactive environment for evaluating Nix expressions"
@@ -110,7 +110,7 @@
   t
   nil
   "Open the Nix expression of the `hello' package"
-  "ed nixpkgs#hello")
+  "ed n#hello")
 
 (define-command nil eval (e)
   "evaluate a Nix expression"
@@ -121,7 +121,7 @@
   "Evaluate a Nix expression given on the command line"
   "e -- --expr '1 + 2'"
   "Print the store path of the `hello' package"
-  "e -- --raw nixpkgs#hello")
+  "e -- --raw n#hello")
 
 (define-command nil fmt (format)
   "reformat your code in the standard style"
@@ -147,8 +147,8 @@
   t
   t
   nil
-  "Print the store path produced by nixpkgs#hello"
-  "pi nixpkgs#hello")
+  "Print the store path produced by n#hello"
+  "pi n#hello")
 
 (define-command nil why-depends (wd)
   "show why a package has another package in its closure"
@@ -157,7 +157,7 @@
   t
   nil
   "Show one path through the dependency graph leading from `hello' to `glibc'"
-  "wd nixpkgs#hello nixpkgs#glibc")
+  "wd n#hello n#glibc")
 
 (define-command nil shell (sh)
   "run a shell in which the specified packages are available"
@@ -168,7 +168,7 @@
       (exe "env" "shell" args)))
   nil
   "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
-  "sh nixpkgs#yt-dlp")
+  "sh n#yt-dlp")
 
 (define-command nil print-dev-env (pd)
   "print shell code of derivation"
@@ -177,7 +177,7 @@
   t
   nil
   "Get the build environment of `hello'"
-  "print nixpkgs#hello")
+  "print n#hello")
 
 (define-command nil daemon (dm)
   "daemon to perform store operations on behalf of non-root clients"
@@ -199,7 +199,7 @@
       (exe "realisation" "info" args)))
   nil
   "Show some information about the realisation of the package `hello'"
-  "rn nixpkgs#hello")
+  "rn n#hello")
 
 (define-command nil upgrade-nix (upgrade)
   "upgrade Nix to the latest stable version"

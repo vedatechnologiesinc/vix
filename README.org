@@ -230,7 +230,7 @@ vix profile install <package>...
 Install a package from Nixpkgs:
 
 #+begin_src shell
-vix p i nixpkgs#hello
+vix p i n#hello
 #+end_src
 
 Install a package from a specific Nixpkgs revision:
@@ -1092,7 +1092,7 @@ vix run [<argument>...|<option>...]
 Run =vim' from the=nixpkgs' flake:
 
 #+begin_src shell
-vix run nixpkgs#vim
+vix run n#vim
 #+end_src
 
 ** vix repl
@@ -1463,7 +1463,7 @@ vix store copy-log <location>
 Copy build logs between Nix stores:
 
 #+begin_src shell
-vix s y --from https://cache.nixos.org --eval-store auto nixpkgs#hello
+vix s y --from https://cache.nixos.org --eval-store auto n#hello
 #+end_src
 
 ** vix store copy-sigs
@@ -1746,7 +1746,7 @@ vix store make-content-addressed <path>
 Create a content-addressed representation of the closure of `hello':
 
 #+begin_src shell
-vix s m nixpkgs#hello
+vix s m n#hello
 #+end_src
 
 ** vix store optimise
@@ -1998,7 +1998,7 @@ vix e -- --expr '1 + 2'
 Print the store path of the `hello' package:
 
 #+begin_src shell
-vix e -- --raw nixpkgs#hello
+vix e -- --raw n#hello
 #+end_src
 
 ** vix shell
@@ -2033,7 +2033,7 @@ vix shell [<argument>...|<option>...]
 Start a shell providing =yt-dlp' from the=nixpkgs' flake:
 
 #+begin_src shell
-vix sh nixpkgs#yt-dlp
+vix sh n#yt-dlp
 #+end_src
 
 ** vix build
@@ -2075,7 +2075,7 @@ Build =hello' and=cowsay' from `nixpkgs' flake, leaving two result
 symlinks:
 
 #+begin_src shell
-vix b nixpkgs#hello nixpkgs#cowsay
+vix b n#hello n#cowsay
 #+end_src
 
 ** vix bundle
@@ -2111,7 +2111,7 @@ vix bundle [<argument>...|<option>...]
 Bundle `hello':
 
 #+begin_src shell
-vix u nixpkgs#vim
+vix u n#vim
 #+end_src
 
 ** vix copy
@@ -2182,7 +2182,7 @@ vix edit [<argument>...|<option>...]
 Open the Nix expression of the `hello' package:
 
 #+begin_src shell
-vix ed nixpkgs#hello
+vix ed n#hello
 #+end_src
 
 ** vix daemon
@@ -2789,10 +2789,10 @@ vix path-info [<argument>...|<option>...]
 :PROPERTIES:
 :CUSTOM_ID: examples-63
 :END:
-Print the store path produced by nixpkgs#hello:
+Print the store path produced by n#hello:
 
 #+begin_src shell
-vix pi nixpkgs#hello
+vix pi n#hello
 #+end_src
 
 ** vix derivation
@@ -2898,7 +2898,7 @@ vix derivation show <derivation>
 Show the `hello' derivation:
 
 #+begin_src shell
-vix v s nixpkgs#hello
+vix v s n#hello
 #+end_src
 
 ** vix why-depends
@@ -2935,7 +2935,7 @@ Show one path through the dependency graph leading from
 =hello' to=glibc':
 
 #+begin_src shell
-vix wd nixpkgs#hello nixpkgs#glibc
+vix wd n#hello n#glibc
 #+end_src
 
 ** vix print-dev-env
@@ -2970,7 +2970,7 @@ vix print-dev-env [<argument>...|<option>...]
 Get the build environment of `hello':
 
 #+begin_src shell
-vix print nixpkgs#hello
+vix print n#hello
 #+end_src
 
 ** vix realisation
@@ -3005,7 +3005,7 @@ vix realisation [<argument>...|<option>...]
 Show some information about the realisation of the package `hello':
 
 #+begin_src shell
-vix rn nixpkgs#hello
+vix rn n#hello
 #+end_src
 
 ** vix upgrade-nix

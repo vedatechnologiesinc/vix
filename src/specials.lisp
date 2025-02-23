@@ -37,3 +37,7 @@
 (def nix-skel-path (path)
   "Return a path from PATH relevant to the project directory."
   (uiop:subpathname *nix-skeleton-directory* path))
+
+(defv *default-flake*
+  "nixpkgs"
+  "The name of the default flake to use.")

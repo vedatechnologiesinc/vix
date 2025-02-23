@@ -11,13 +11,19 @@
 
 ;;; run stuff
 
+(def fix-args (&rest args)
+  "Return a normalized version of ARGS."
+  (mapcar #'(lambda (arg)
+              (cl-ppcre:regex-replace-all "^n#" arg (cat *default-flake* #\#)))
+          (flatten-list args)))
+
 (def exe! (cmd)
   "Run CMD."
   (uiop:run-program cmd :input :interactive :output :interactive :error-output :interactive))
 
 (def exe (&rest args)
   "Use the main program command to run ARGS."
-  (exe! (append +exe+ (flatten-list args))))
+  (exe! (append +exe+ (apply #'fix-args args))))
 
 
 ;;; common fns
@@ -31,12 +37,6 @@
   (let ((parts (partition args 2)))
     (loop :for (desc usage) :in parts
           :collect (cons (fmt "~A:" desc) (fmt "~A ~A" +project-name+ usage)))))
-
-(def cmd-handler (cmd fn)
-  "Define a function that parses the command arguments from CMD and runs the
-command CMD from it."
-  (let ((args (clingon:command-arguments cmd)))
-    [fn args]))
 
 (def- prefix-command (prefix cmd)
   "Return a prefix string for CMD if PREFIX is true."

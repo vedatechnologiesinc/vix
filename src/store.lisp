@@ -33,7 +33,7 @@
   t
   nil
   "Copy build logs between Nix stores"
-  "s y --from https://cache.nixos.org --eval-store auto nixpkgs#hello")
+  "s y --from https://cache.nixos.org --eval-store auto n#hello")
 
 ;; TODO add example(s)
 (define-command store copy-sigs ()
@@ -106,7 +106,7 @@
   t
   nil
   "Create a content-addressed representation of the closure of `hello'"
-  "s m nixpkgs#hello")
+  "s m n#hello")
 
 (define-command store optimise (o)
   "replace identical files in the store by hard links"
