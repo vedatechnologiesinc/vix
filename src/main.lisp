@@ -26,6 +26,10 @@
 (define-main-command
     (("verbose" "verbosity" :counter 0))
     (profile
+     install
+     remove
+     upgrade
+     list
      flake
      develop
      make

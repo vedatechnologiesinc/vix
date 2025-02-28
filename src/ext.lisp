@@ -53,7 +53,7 @@
   "Search in `nixpkgs' flake for packages named `firefox'"
   "search nixpkgs firefox")
 
-(define-command nil find (fd)
+(define-command nil find (/)
   "search for packages in the `nixpkgs' flake"
   "<package>..."
   nil
@@ -94,14 +94,14 @@
   "Bundle `hello'"
   "u n#vim")
 
-(define-command nil copy (y)
+(define-command nil copy ()
   "start an interactive environment for evaluating Nix expressions"
   nil
   nil
   t
   nil
   "Copy all store paths from a local binary cache"
-  "y -- --all --from file:///tmp/cache")
+  "copy -- --all --from file:///tmp/cache")
 
 (define-command nil edit (ed)
   "open the Nix expression of a Nix package in $EDITOR"
@@ -141,7 +141,7 @@
   "Evaluate some simple Nix expressions"
   "repl")
 
-(define-command nil path-info (pi)
+(define-command nil path-info ()
   "query information about store paths"
   nil
   t
@@ -150,7 +150,7 @@
   "Print the store path produced by n#hello"
   "pi n#hello")
 
-(define-command nil why-depends (wd)
+(define-command nil why-depends ()
   "show why a package has another package in its closure"
   nil
   t
@@ -170,27 +170,27 @@
   "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
   "sh n#yt-dlp")
 
-(define-command nil print-dev-env (pd)
+(define-command nil print-dev-env ()
   "print shell code of derivation"
   nil
   t
   t
   nil
   "Get the build environment of `hello'"
-  "print n#hello")
+  "print-dev-env n#hello")
 
-(define-command nil daemon (dm)
+(define-command nil daemon ()
   "daemon to perform store operations on behalf of non-root clients"
   nil
   nil
   t
   nil
   "Run the daemon"
-  "dm"
+  "daemon"
   "Run the daemon and force all connections to be trusted"
-  "dm -- --force-trusted")
+  "daemon -- --force-trusted")
 
-(define-command nil realisation (rn)
+(define-command nil realisation ()
   "manipulate a Nix realisation"
   nil
   t
@@ -199,16 +199,16 @@
       (exe "realisation" "info" args)))
   nil
   "Show some information about the realisation of the package `hello'"
-  "rn n#hello")
+  "realisation n#hello")
 
-(define-command nil upgrade-nix (upgrade)
+(define-command nil upgrade-nix ()
   "upgrade Nix to the latest stable version"
   ""
   nil
   t
   nil
   "Upgrade Nix to the stable version declared in `nixpkgs' flake"
-  "upgrade")
+  "upgrade-nix")
 
 (define-command nil collect-garbage (g)
   "run the garbage collector"

@@ -4,49 +4,61 @@
 (uiop:define-package #:vix/src/profile
   (:use #:cl
         #:marie
-        #:vix/src/core))
+        #:vix/src/core)
+  (:export #:install/command
+           #:remove/command
+           #:upgrade/command
+           #:list/command))
 
 (in-package #:vix/src/profile)
 
-(define-command profile install (i)
+(define-command profile install (in)
   "install a package into a profile"
   "<package>..."
   t
   t
   nil
   "Install a package from Nixpkgs"
-  "p i n#hello"
+  "p in n#hello"
   "Install a package from a specific Nixpkgs revision"
-  "p i nixpkgs/d734#hello")
+  "p in nixpkgs/d734#hello")
 
-(define-command profile remove (r)
+(defalias profile/install/command install/command)
+
+(define-command profile remove (rm)
   "uninstall packages from a profile"
   "<package>..."
   nil
   t
   nil
   "Remove a package by name"
-  "p r hello"
+  "p rm hello"
   "Remove all packages"
-  "p r -- --all")
+  "p rm -- --all")
 
-(define-command profile upgrade (u)
+(defalias profile/remove/command remove/command)
+
+(define-command profile upgrade (up)
   "upgrade packages using their most recent flake"
   "<package>..."
   nil
   t
   nil
   "Upgrade a specific package by name"
-  "p u hello")
+  "p up hello")
 
-(define-command profile list (l)
+(defalias profile/upgrade/command upgrade/command)
+
+(define-command profile list (ls)
   "list the installed packages"
   ""
   nil
   t
   nil
   "List packages installed in the default profile"
-  "p l")
+  "p ls")
+
+(defalias profile/list/command list/command)
 
 (define-command profile rollback (rb)
   "roll back to a previous version of a profile"
