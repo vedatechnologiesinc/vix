@@ -1,6 +1,7 @@
 #+title: Vix
 * Table of contents :TOC:
 - [[#overview][Overview]]
+- [[#build][Build]]
 - [[#commands][Commands]]
   - [[#vix][vix]]
   - [[#vix-profile][vix profile]]
@@ -88,6 +89,16 @@
 
 * Overview
 Vix is a thin wrapper for interacting with the Nix CLI ecosystem
+
+* Build
+:PROPERTIES:
+:CUSTOM_ID: build
+:END:
+To =build= vix, run
+#+begin_Src makefile
+make
+#+end_Src
+
 * Commands
 ** vix
 :PROPERTIES:
