@@ -94,7 +94,7 @@ Vix is a thin wrapper for interacting with the Nix CLI ecosystem
 :PROPERTIES:
 :CUSTOM_ID: build
 :END:
-To =build= vix, run
+To =build= vix, run,
 #+begin_Src makefile
 make
 #+end_Src
