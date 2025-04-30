@@ -49,4 +49,6 @@
   "<command>"
   nil
   #'print-usage
-  (list add remove pin))
+  (list
+   add
+   remove pin))

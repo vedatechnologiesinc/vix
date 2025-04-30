@@ -5,28 +5,28 @@
   (:use #:cl
         #:marie
         #:vix/src/core)
-  (:export #:install/command
+  (:export #:add/command
            #:remove/command
            #:upgrade/command
            #:list/command))
 
 (in-package #:vix/src/profile)
 
-(define-command profile install (in)
-  "install a package into a profile"
+(define-command profile add (install)
+  "add a package into a profile"
   "<package>..."
   t
   t
   nil
-  "Install a package from Nixpkgs"
-  "p in n#hello"
-  "Install a package from a specific Nixpkgs revision"
-  "p in nixpkgs/d734#hello")
+  "Add a package from Nixpkgs"
+  "p add n#hello"
+  "Add a package from a specific Nixpkgs revision"
+  "p add nixpkgs/d734#hello")
 
-(defalias profile/install/command install/command)
+(defalias profile/add/command add/command)
 
 (define-command profile remove (rm)
-  "uninstall packages from a profile"
+  "remove packages from a profile"
   "<package>..."
   nil
   t
@@ -103,4 +103,4 @@
   "<command>"
   nil
   #'print-usage
-  (install remove upgrade list rollback history wipe-history diff-closures))
+  (add remove upgrade list rollback history wipe-history diff-closures))
