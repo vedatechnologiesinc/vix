@@ -11,7 +11,7 @@
 (def- rebuild/options ()
   "Return the options for the `rebuild' command."
   (list
-   (make-opt "flake" "specify flake to use" :string (uiop:native-namestring (home "etc/dev/")))
+   (make-opt "flake" "specify flake to use" :string (uiop:native-namestring (home "etc/nix/")))
    (make-opt "switch" "switch to profile after rebuild" :flag :true)
    (make-opt "upgrade" "upgrade to latest version" :flag :false)))
 
