@@ -26,7 +26,7 @@
   "Generate a new secret key"
   "k gen -- --key-name cache.example.org-1 > ./secret-key")
 
-(define-command nil key (k)
+(define-command nil key ()
   "generate and convert Nix signing keys"
   "<command>"
   nil

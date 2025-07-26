@@ -8,11 +8,11 @@
 
 (in-package #:vix/src/flake)
 
-(def- flake/init/handler (cmd)
+(def- flake/init/handler (&optional cmd)
   "Define a function for handling the `flake init' command."
-  (let ((args (clingon:command-arguments cmd)))
-    (with-output-file (out #P"flake.nix")
-      (format out "{
+  (declare (ignorable cmd))
+  (with-output-file (out #P"flake.nix")
+    (format out "{
   description = \"A flake\";
   inputs = {
     nixpkgs.url = \"github:nixos/nixpkgs/nixpkgs-unstable\";
@@ -26,23 +26,7 @@
         devShells = import ./shells.nix { inherit nixpkgs pkgs; };
       });
 }
-"))
-    (with-output-file (out #P"apps.nix")
-      (format out "{ pkgs }: rec {
-  hello = {
-    type = \"app\";
-    program = \"${pkgs.hello}/bin/hello\";
-  };
-  default = hello;
-}
-"))
-    (with-output-file (out #P"shells.nix")
-      (format out "{ nixpkgs, pkgs, ... }:
-with pkgs; rec {
-  shell = mkShell { buildInputs = [ hello ]; };
-  default = shell;
-}
-"))))
+")))
 
 (define-command flake init (i)
   "create a flake in the current directory"

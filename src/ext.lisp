@@ -19,7 +19,7 @@
   "Run a dev shell and run `htop' inside"
   "d -- -c htop")
 
-(define-command nil make (m)
+(define-command nil make ()
   "run `make' inside a dev shell"
   nil
   nil
@@ -28,10 +28,10 @@
       (exe "develop" "--command" "make" args)))
   nil
   "Run `make' inside a dev shell"
-  "m")
+  "make")
 
-(define-command nil command (c)
-  "run a command inside a dev shell"
+(define-command nil command (exec)
+  "execute a command inside a dev shell"
   "command..."
   nil
   (lambda (cmd)
@@ -39,7 +39,7 @@
       (exe "develop" "--command" args)))
   nil
   "Run `ncdu' inside a dev shell"
-  "c ncdu")
+  "exec ncdu")
 
 (define-command nil search ()
   "search for packages"
@@ -63,18 +63,18 @@
       (apply #'exe final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
-  "fd firefox")
+  "/ firefox")
 
-(define-command nil build (b)
+(define-command nil build ()
   "build a derivation or fetch a store path"
   nil
   t
   t
   nil
   "Build the default package from the flake in the current directory"
-  "b"
+  "build"
   "Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks"
-  "b n#hello n#cowsay")
+  "build n#hello n#cowsay")
 
 (define-command nil run ()
   "run a Nix application"
@@ -85,14 +85,14 @@
   "Run `vim' from the `nixpkgs' flake"
   "run n#vim")
 
-(define-command nil bundle (u)
+(define-command nil bundle ()
   "bundle an application so that it works outside of the Nix store"
   nil
   t
   t
   nil
   "Bundle `hello'"
-  "u n#vim")
+  "bundle n#vim")
 
 (define-command nil copy ()
   "start an interactive environment for evaluating Nix expressions"
@@ -103,14 +103,14 @@
   "Copy all store paths from a local binary cache"
   "copy -- --all --from file:///tmp/cache")
 
-(define-command nil edit (ed)
+(define-command nil edit ()
   "open the Nix expression of a Nix package in $EDITOR"
   nil
   t
   t
   nil
   "Open the Nix expression of the `hello' package"
-  "ed n#hello")
+  "edit n#hello")
 
 (define-command nil eval (e)
   "evaluate a Nix expression"
@@ -150,7 +150,7 @@
   "Print the store path produced by n#hello"
   "pi n#hello")
 
-(define-command nil why-depends ()
+(define-command nil why-depends (wd)
   "show why a package has another package in its closure"
   nil
   t
@@ -170,7 +170,7 @@
   "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
   "sh n#yt-dlp")
 
-(define-command nil print-dev-env ()
+(define-command nil print-dev-env (pde)
   "print shell code of derivation"
   nil
   t
@@ -201,7 +201,7 @@
   "Show some information about the realisation of the package `hello'"
   "realisation n#hello")
 
-(define-command nil upgrade-nix ()
+(define-command nil upgrade-nix (un)
   "upgrade Nix to the latest stable version"
   ""
   nil
@@ -219,7 +219,7 @@
       (exe! `("nix-collect-garbage" ,@args))))
   nil
   "Garbage collect"
-  "gc"
+  "g"
   "Gargage collect and delete old versions"
   "g -- -d")
 
@@ -239,7 +239,7 @@ autoload -U compinit
 compinit
 EOF")
 
-(define-command nil print-doc (doc)
+(define-command nil print-doc (doc pd)
   "print the documentation"
   ""
   nil

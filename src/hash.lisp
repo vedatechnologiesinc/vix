@@ -38,7 +38,7 @@
 (define-sub-commands hash
   file path convert)
 
-(define-command nil hash (h)
+(define-command nil hash ()
   "compute and convert cryptographic hashes"
   "<command>"
   nil

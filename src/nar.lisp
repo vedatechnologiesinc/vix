@@ -35,7 +35,7 @@
   "To list a specific file in a NAR file"
   "n l -- --long ./hello.nar /bin/hello")
 
-(define-command nil nar (n)
+(define-command nil nar ()
   "create or inspect nar files"
   "<command>"
   nil

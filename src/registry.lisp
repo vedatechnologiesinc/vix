@@ -17,7 +17,7 @@
   "Show the contents of all registries"
   "r l")
 
-(define-command registry add (a)
+(define-command registry add ()
   "create a flake in the current directory"
   "<flake> <location>"
   nil

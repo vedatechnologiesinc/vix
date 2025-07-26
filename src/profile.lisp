@@ -4,103 +4,114 @@
 (uiop:define-package #:vix/src/profile
   (:use #:cl
         #:marie
-        #:vix/src/core)
-  (:export #:add/command
-           #:remove/command
-           #:upgrade/command
-           #:list/command))
+        #:vix/src/core))
 
 (in-package #:vix/src/profile)
 
-(define-command profile add (install)
+(define-command nil install (i)
   "add a package into a profile"
   "<package>..."
-  t
-  t
   nil
-  "Add a package from Nixpkgs"
-  "p add n#hello"
-  "Add a package from a specific Nixpkgs revision"
-  "p add nixpkgs/d734#hello")
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "install" args)))
+  nil
+  "Install a package from Nixpkgs"
+  "i n#hello"
+  "Install a package from a specific Nixpkgs revision"
+  "i nixpkgs/d734#hello")
 
-(defalias profile/add/command add/command)
-
-(define-command profile remove (rm)
+(define-command nil uninstall (u)
   "remove packages from a profile"
   "<package>..."
   nil
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "remove" args)))
   nil
-  "Remove a package by name"
-  "p rm hello"
+  "Uninstall a package by name"
+  "u hello"
   "Remove all packages"
-  "p rm -- --all")
+  "u -- --all")
 
-(defalias profile/remove/command remove/command)
-
-(define-command profile upgrade (up)
+(define-command nil upgrade (up)
   "upgrade packages using their most recent flake"
   "<package>..."
   nil
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "upgrade" args)))
   nil
   "Upgrade a specific package by name"
-  "p up hello")
+  "up hello")
 
-(defalias profile/upgrade/command upgrade/command)
-
-(define-command profile list (ls)
+(define-command nil list (l)
   "list the installed packages"
   ""
   nil
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "list" args)))
   nil
   "List packages installed in the default profile"
-  "p ls")
+  "l")
 
-(defalias profile/list/command list/command)
-
-(define-command profile rollback (rb)
+(define-command nil rollback (a)
   "roll back to a previous version of a profile"
   ""
   nil
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "rollback" args)))
   nil
   "Roll back your default profile to the previous version"
-  "p rb"
+  "b"
   "Roll back your default profile to version 500"
-  "p rb -- --to 500")
+  "b -- --to 500")
 
-(define-command profile history (h)
+(define-command nil history (h)
   "show all versions of a profile"
   ""
   nil
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "history" args)))
   nil
   "Show the changes between each version of your default profile"
-  "p h")
+  "h")
 
-(define-command profile wipe-history (w)
+(define-command nil wipe-history (wh)
   "delete non-current versions of a profile"
   ""
   nil
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "wipe-history" args)))
   nil
   "Delete all versions of the default profile older than 30 days"
-  "p w -- --profile /tmp/profile --older-than 30d")
+  "wh -- --profile /tmp/profile --older-than 30d")
 
-(define-command profile diff-closures (d)
+(define-command profile diff-closures (dc)
   "show the closure difference between each version of a profile"
   ""
   nil
-  t
+  (lambda (cmd)
+    (let ((args (clingon:command-arguments cmd)))
+      (exe "profile" "diff-closures" args)))
   nil
   "Show what changed between each version of the NixOS system profile"
-  "p d -- --profile /nix/var/nix/profiles/system")
+  "dc -- --profile /nix/var/nix/profiles/system")
 
-(define-command nil profile (p)
-  "profile commands"
-  "<command>"
-  nil
-  #'print-usage
-  (add remove upgrade list rollback history wipe-history diff-closures))
+;; (define-command nil profile (p)
+;;   "profile commands"
+;;   "<command>"
+;;   nil
+;;   #'print-usage
+;;   (install
+;;    remove
+;;    upgrade
+;;    list
+;;    rollback
+;;    history
+;;    wipe-history
+;;    diff-closures))

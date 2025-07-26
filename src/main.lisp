@@ -25,11 +25,13 @@
 
 (define-main-command
     (("verbose" "verbosity" :counter 0))
-    (profile
-     add
-     remove
+    (install
+     uninstall
      upgrade
      list
+     rollback
+     history
+     wipe-history
      flake
      develop
      make
