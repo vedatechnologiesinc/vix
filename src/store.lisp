@@ -8,7 +8,7 @@
 
 (in-package #:vix/src/store)
 
-(define-command store add ()
+(define-command store add (a)
   "add a file or directory to the Nix store"
   "<location>"
   nil
@@ -26,24 +26,24 @@
   "Show the contents of a file in a binary cache"
   "o c --store https://cache.nixos.org/ /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10/bin/hello")
 
-(define-command store copy-log ()
+(define-command store copy-log (cl)
   "copy build logs between Nix stores"
   "<location>"
   nil
   t
   nil
   "Copy build logs between Nix stores"
-  "o y --from https://cache.nixos.org --eval-store auto n#hello")
+  "o cl --from https://cache.nixos.org --eval-store auto n#hello")
 
 ;; TODO add example(s)
-(define-command store copy-sigs ()
+(define-command store copy-sigs (cs)
   "copy store path signatures from substituters"
   ""
   nil
   t
   nil
   "Copy sigs"
-  "o i")
+  "o cs")
 
 (define-command store delete (d)
   "delete paths from the Nix store"
@@ -54,23 +54,23 @@
   "Delete a specific store path"
   "o d /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10")
 
-(define-command store diff-closures (u)
+(define-command store diff-closures (dc)
   "show what packages and versions were added and removed"
   "<path>..."
   nil
   t
   nil
   "Show what got added and removed between two versions of the NixOS system profile"
-  "o u /nix/var/nix/profiles/system-655-link /nix/var/nix/profiles/system-658-link")
+  "o dc /nix/var/nix/profiles/system-655-link /nix/var/nix/profiles/system-658-link")
 
-(define-command store dump-path (p)
+(define-command store dump-path (dp)
   "serialise a store path to stdout in NAR format"
   "<path>"
   nil
   t
   nil
   "To get a NAR from the binary cache https://cache.nixos.org/"
-  "o p -- --store https://cache.nixos.org/ /nix/store/7crrmih8c52r8fbnqb933dxrsp44md93-glibc-2.25 > glibc.nar")
+  "o dp -- --store https://cache.nixos.org/ /nix/store/7crrmih8c52r8fbnqb933dxrsp44md93-glibc-2.25 > glibc.nar")
 
 (define-command store gc ()
   "perform garbage collection on a Nix store"
@@ -88,7 +88,7 @@
   t
   nil
   "Test whether connecting to a remote Nix store via SSH works"
-  "o o -- --store ssh://mac1")
+  "o i -- --store ssh://mac1")
 
 (define-command store ls (l)
   "show information about a path in the Nix store"
@@ -99,14 +99,14 @@
   "To list the contents of a store path in a binary cache"
   "o l -- --store https://cache.nixos.org/ --long --recursive /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10")
 
-(define-command store make-content-addressed (m)
+(define-command store make-content-addressed (mka)
   "rewrite a path or closure to content-addressed form"
   "<path>"
   t
   t
   nil
   "Create a content-addressed representation of the closure of `hello'"
-  "o m n#hello")
+  "o mka n#hello")
 
 (define-command store optimise (o)
   "replace identical files in the store by hard links"
@@ -145,14 +145,14 @@
   "o r /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10")
 
 ;; TODO add example(s)
-(define-command store sign (n)
+(define-command store sign ()
   "sign store paths with a local key"
   ""
   nil
   t
   nil
   "Sign store"
-  "o n")
+  "o sign")
 
 (define-command store verify ()
   "verify the integrity of store paths"
@@ -161,7 +161,7 @@
   t
   nil
   "Verify the entire Nix store"
-  "store-verify -- --all")
+  "o verify -- --all")
 
 (define-command nil store (o)
   "manipulate the Nix store"
