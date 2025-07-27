@@ -8,27 +8,27 @@
 
 (in-package #:vix/src/derivation)
 
-(define-command derivation dadd ()
+(define-command derivation add ()
   "add a store derivation"
   "<path>"
   nil
   t
   nil
   "Add a derivation"
-  "v dadd path")
+  "drv dadd path")
 
-(define-command derivation dshow ()
+(define-command derivation show ()
   "show the contents of a store derivation"
   "<derivation>"
   t
   t
   nil
   "Show the `hello' derivation"
-  "v dshow n#hello")
+  "drv dshow n#hello")
 
-(define-command nil derivation (v)
+(define-command nil derivation (drv)
   "work with derivations"
   "<command>"
   nil
   #'print-usage
-  (dadd dshow))
+  (add show))

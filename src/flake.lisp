@@ -26,6 +26,42 @@
         devShells = import ./shells.nix { inherit nixpkgs pkgs; };
       });
 }
+"))
+  (with-output-file (out #P"apps.nix")
+    (format out "{ pkgs }:
+rec {
+  hello = {
+    type = \"app\";
+    program = \"${pkgs.hello}/bin/hello\";
+  };
+  default = hello;
+}
+"))
+  (with-output-file (out #P"shells.nix")
+    (format out "{
+  nixpkgs,
+  pkgs,
+  ...
+}:
+with pkgs;
+let
+  comDeps = [
+    rlwrap
+  ];
+  addComDeps = list: list ++ comDeps;
+in
+rec {
+  lisp = mkShell {
+    buildInputs = addComDeps [
+      sbcl
+      ecl
+      cl-launch
+      libfixposix
+    ];
+  };
+  cl = lisp;
+  default = lisp;
+}
 ")))
 
 (define-command flake init (i)

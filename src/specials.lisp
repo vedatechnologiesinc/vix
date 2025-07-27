@@ -15,7 +15,7 @@
   "The name of the project.")
 
 (defk +project-version+
-  "0.0.1"
+  "0.0.2"
   "The version number of the project.")
 
 (defk +project-description+

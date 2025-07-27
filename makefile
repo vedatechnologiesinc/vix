@@ -23,11 +23,11 @@ endif
 all: $(NAME)
 
 $(NAME):
-	$(LISP) $(LISP_FLAGS) src/build.lisp
+	@$(LISP) $(LISP_FLAGS) src/build.lisp
 
-install:
-	mkdir -p ${HOME}/bin
-	cp -f vix ${HOME}/bin
+install: $(NAME)
+	@mkdir -p ${HOME}/bin
+	@cp -f vix ${HOME}/bin
 
 clean:
 	@rm -f $(NAME)
