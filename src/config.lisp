@@ -15,7 +15,7 @@
   t
   nil
   "Show configuration"
-  "cfg show")
+  "conf show")
 
 (define-command config check ()
   "check your system for potential problems"
@@ -24,9 +24,9 @@
   t
   nil
   "Check for problems"
-  "cfg k")
+  "conf k")
 
-(define-command nil config (cfg)
+(define-command nil config (conf)
   "manage the Nix settings" "<command>"
   nil
   #'print-usage

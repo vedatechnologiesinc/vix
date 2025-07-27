@@ -15,7 +15,7 @@
   t
   nil
   "Convert a secret key to a public key"
-  "k con foo")
+  "key con foo")
 
 (define-command key generate (gen)
   "generate a secret key for signing store paths"
@@ -24,7 +24,7 @@
   t
   nil
   "Generate a new secret key"
-  "k gen -- --key-name cache.example.org-1 > ./secret-key")
+  "key gen -- --key-name cache.example.org-1 > ./secret-key")
 
 (define-command nil key ()
   "generate and convert Nix signing keys"

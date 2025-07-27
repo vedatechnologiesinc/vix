@@ -15,7 +15,7 @@
   t
   nil
   "To display a file in a NAR file"
-  "n c ./hello.nar /share/man/man1/hello.1.gz | gunzip")
+  "nar c ./hello.nar /share/man/man1/hello.1.gz | gunzip")
 
 (define-command nar dump-path (d)
   "serialise a path to stdout in NAR format"
@@ -24,7 +24,7 @@
   t
   nil
   "To serialise directory `foo' as a NAR file"
-  "n d ./foo > foo.nar")
+  "nar d ./foo > foo.nar")
 
 (define-command nar ls (l)
   "show information about a path inside a NAR file"
@@ -33,7 +33,7 @@
   t
   nil
   "To list a specific file in a NAR file"
-  "n l -- --long ./hello.nar /bin/hello")
+  "nar l -- --long ./hello.nar /bin/hello")
 
 (define-command nil nar ()
   "create or inspect nar files"

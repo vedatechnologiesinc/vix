@@ -15,7 +15,7 @@
   t
   nil
   "Print hash of `file.txt'"
-  "h f file.txt")
+  "hash f file.txt")
 
 (define-command hash path (p)
   "print hash of the NAR serialisation of a path"
@@ -24,7 +24,7 @@
   t
   nil
   "Print hash of path `/foo/bar/'"
-  "h p /foo/bar/")
+  "hash p /foo/bar/")
 
 (define-command hash convert (c)
   "convert between hash formats"
@@ -33,7 +33,7 @@
   t
   nil
   "Convert a hash"
-  "h c -- --hash-algo sha1 800d59cfcd3c05e900cb4e214be48f6b886a08df")
+  "hash c -- --hash-algo sha1 800d59cfcd3c05e900cb4e214be48f6b886a08df")
 
 (define-sub-commands hash
   file path convert)
