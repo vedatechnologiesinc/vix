@@ -18,12 +18,16 @@ endif
 .SHELLFLAGS := -eu -o pipefail -c
 .DELETE_ON_ERROR:
 
-.PHONY: all $(NAME) clean
+.PHONY: all $(NAME) install clean
 
 all: $(NAME)
 
 $(NAME):
 	$(LISP) $(LISP_FLAGS) src/build.lisp
+
+install:
+	mkdir -p ${HOME}/bin
+	cp -f vix ${HOME}/bin
 
 clean:
 	@rm -f $(NAME)
