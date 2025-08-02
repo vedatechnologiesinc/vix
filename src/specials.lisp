@@ -14,10 +14,6 @@
   "vix"
   "The name of the project.")
 
-(defk +project-version+
-  "1.5.0"
-  "The version number of the project.")
-
 (defk +project-description+
   "a thin wrapper for interacting with the Nix CLI ecosystem."
   "The project description.")

@@ -3,7 +3,7 @@
 
 (defsystem #:vix-tests
     :name "vix-tests"
-    :version (:read-file-form #P"version-tests.lisp")
+    :version #.(uiop:read-file-form (make-pathname :directory '(:relative "t") :name "version" :type "lisp"))
     :description "Test ASDF file of vix"
     :class :package-inferred-system
     :depends-on (#:fiveam
