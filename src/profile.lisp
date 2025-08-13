@@ -8,20 +8,36 @@
 
 (in-package #:vix/src/profile)
 
+(def prefix-nixpkgs (list)
+  "Return a new list with `nixpkgs#' prefix."
+  (loop :for item :in list :collect (format nil "nixpkgs#~A" item)))
+
 (define-command nil install (i)
   "add a package into a profile"
   "<package>..."
   nil
   (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
-      (exe "profile" "install" args)))
+    (let* ((args (clingon:command-arguments cmd))
+           (args-prefixed (prefix-nixpkgs args)))
+      (exe "profile" "install" args-prefixed)))
+  nil
+  "Install packages from Nixpkgs"
+  "i htop btop")
+
+(define-command nil add (a)
+  "add a package into a profile"
+  "<package>..."
+  nil
+  (lambda (cmd)
+    (let* ((args (clingon:command-arguments cmd)))
+      (exe "profile" "add" args)))
   nil
   "Install a package from Nixpkgs"
-  "i n#hello"
+  "a n#hello"
   "Install a package from a specific Nixpkgs revision"
-  "i nixpkgs/d734#hello")
+  "a nixpkgs/d734#hello")
 
-(define-command nil uninstall (u)
+(define-command nil uninstall (u rm)
   "remove packages from a profile"
   "<package>..."
   nil
@@ -56,7 +72,7 @@
   "List packages installed in the default profile"
   "l")
 
-(define-command nil rollback (a)
+(define-command nil rollback ()
   "roll back to a previous version of a profile"
   ""
   nil

@@ -8,24 +8,11 @@
 
 (in-package #:vix/src/ext)
 
-(def- develop/options ()
-  "Return the options for the `rebuild' command."
-  (list
-   (make-opt "command" "specify command to use" :string "")))
-
-(def- develop/handler (cmd)
-  "Handler for the `develop' command."
-  (let* ((args (clingon:command-arguments cmd))
-         (opt-command (clingon:getopt cmd :opt-command))
-         (full-args (append args
-                            opt-command)))
-    (exe `("develop" ,@full-args))))
-
 (define-command nil develop (d)
   "run a dev shell"
-  "[-c <command>] <option>…"
-  (develop/options)
-  #'develop/handler
+  nil
+  t
+  t
   nil
   "Run a dev shell"
   "d"

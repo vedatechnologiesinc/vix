@@ -26,6 +26,7 @@
 (define-main-command
     (("verbose" "verbosity" :counter 0))
     (install
+     add
      uninstall
      upgrade
      list

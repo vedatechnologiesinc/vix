@@ -3,8 +3,10 @@
 
 (defsystem #:vix-tests
     :name "vix-tests"
-    :version #.(uiop:read-file-form (make-pathname :directory '(:relative "t") :name "version" :type "lisp"))
+    ;; :version #.(uiop:read-file-string (subpathname *load-pathname* "version-tests.lisp"))
+    ;; :version #.(uiop:read-file-form (make-pathname :directory '(:relative "t") :name "version" :type "lisp"))
     :description "Test ASDF file of vix"
+    :author "Rommel Martínez <ebzzry@icloud.com>"
     :class :package-inferred-system
     :depends-on (#:fiveam
                  #:marie

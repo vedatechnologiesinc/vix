@@ -3,7 +3,8 @@
 
 (defsystem #:vix
     :name "vix"
-    :version #.(uiop:read-file-form (make-pathname :directory '(:relative "src") :name "version" :type "lisp"))
+    ;; :version #.(uiop:read-file-string (subpathname *load-pathname* "version.lisp"))
+    ;; :version #.(uiop:read-file-form (make-pathname :directory '(:relative "src") :name "version" :type "lisp"))
     :description "A program for interacting with the Nix ecosystem"
     :author "Rommel Martínez <ebzzry@icloud.com>"
     :class :package-inferred-system
