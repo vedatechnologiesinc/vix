@@ -73,14 +73,14 @@ rec {
   "Create a flake using the default template"
   "f i")
 
-(define-command flake metadata (m)
+(define-command flake metadata (meta)
   "show flake metadata"
   ""
   nil
   t
   nil
   "Show flake metadata"
-  "f m")
+  "f meta")
 
 (define-command flake show (s)
   "show the outputs provided by a flake"
