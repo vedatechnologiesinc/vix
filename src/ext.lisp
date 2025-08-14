@@ -19,7 +19,7 @@
   "Run a dev shell and run `htop' inside"
   "d -c htop")
 
-(define-command nil make ()
+(define-command nil make (m)
   "run `make' inside a dev shell"
   nil
   nil
