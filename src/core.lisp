@@ -231,7 +231,7 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
          "Define the main command"
          (clingon:make-command
           :name ,+project-name+
-          :version "0.0.0"
+          :version #.(uiop:read-file-form (make-pathname :directory '(:relative "src") :name "version" :type "lisp"))
           :description ,+project-description+
           :options (,%options)
           :handler #'print-usage
