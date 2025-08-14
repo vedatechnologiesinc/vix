@@ -7,19 +7,8 @@ with pkgs;
 let
   comDeps = [
     which
-    rlwrap
-    file
-    getopt
-    glib
-    openssl
-    zlib
-    zstd
   ];
   extraLibs = [
-    libGL
-    libGLU
-    meson
-    glfw
     zstd
   ];
   addComDeps = list: list ++ comDeps;
