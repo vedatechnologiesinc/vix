@@ -18,8 +18,6 @@ rec {
     buildInputs =
       addComDeps [
         sbcl
-        ecl
-        cl-launch
         libfixposix
       ]
       ++ extraLibs;
