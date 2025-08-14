@@ -19,7 +19,7 @@
   (lambda (cmd)
     (let* ((args (clingon:command-arguments cmd))
            (args-prefixed (prefix-nixpkgs args)))
-      (exe "profile" "add" args-prefixed)))
+      (exe "profile" "install" args-prefixed)))
   nil
   "Install packages from Nixpkgs"
   "i htop btop")
@@ -30,7 +30,7 @@
   nil
   (lambda (cmd)
     (let* ((args (clingon:command-arguments cmd)))
-      (exe "profile" "add" args)))
+      (exe "profile" "install" args)))
   nil
   "Install a package from Nixpkgs"
   "a n#hello"
