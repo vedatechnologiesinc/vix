@@ -64,6 +64,7 @@
      upgrade-nix
      collect-garbage
      zsh-completions
-     print-doc))
+     print-doc
+     where))
 
 (define-main)

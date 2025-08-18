@@ -21,9 +21,25 @@
   "Run CMD."
   (uiop:run-program cmd :input :interactive :output :interactive :error-output :interactive))
 
+(def eze! (cmd)
+  "Run CMD."
+  (uiop:run-program cmd :input :interactive :output :string :error-output :string))
+
 (def exe (&rest args)
   "Use the main program command to run ARGS."
   (exe! (append +exe+ (apply #'fix-args args))))
+
+(def eze (&rest args)
+  "Use the main program command to run ARGS."
+  (eze! (append +exe+ (apply #'fix-args args))))
+
+(def prefix-nixpkg (item)
+  "Return a string that is prefixed with `nixpkgs#'."
+  (format nil "nixpkgs#~A" item))
+
+(def prefix-nixpkgs (list)
+  "Return a new list with `nixpkgs#' prefix."
+  (loop :for item :in list :collect (prefix-nixpkg item)))
 
 
 ;;; common fns

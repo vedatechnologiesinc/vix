@@ -8,10 +8,6 @@
 
 (in-package #:vix/src/profile)
 
-(def prefix-nixpkgs (list)
-  "Return a new list with `nixpkgs#' prefix."
-  (loop :for item :in list :collect (format nil "nixpkgs#~A" item)))
-
 (define-command nil install (i)
   "add a package into a profile"
   "<package>..."

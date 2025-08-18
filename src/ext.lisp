@@ -65,7 +65,7 @@
   "Search in `nixpkgs' flake for packages named `firefox'"
   "/ firefox")
 
-(define-command nil build ()
+(define-command nil build (b)
   "build a derivation or fetch a store path"
   nil
   t
@@ -248,3 +248,20 @@ EOF")
   nil
   "Generate the Markdown documentation of Vix and save it to README.md"
   "print-doc > README.md")
+
+(define-command nil where (w)
+  "show the files of a package."
+  "<package>"
+  nil
+  (lambda (cmd)
+    (let* ((args (clingon:command-arguments cmd))
+           (args-prefixed (prefix-nixpkgs args))
+           (paths (loop :for input :in args-prefixed
+                        :collect (string-trim '(#\Space #\Tab #\Newline)
+                                              (eze "build" input "--print-out-paths" "--no-link")))))
+      (loop :for path :in paths :do (exe! `("find" ,path)))))
+  nil
+  "Show the files that were installed by the `hello' package"
+  "w hello"
+  "Show the files that were installed by the `hello' and `firefox' packages"
+  "w hello firefox")
