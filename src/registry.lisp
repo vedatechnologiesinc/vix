@@ -15,7 +15,7 @@
   t
   nil
   "Show the contents of all registries"
-  "r l")
+  "y l")
 
 (define-command registry add ()
   "create a flake in the current directory"
@@ -24,7 +24,7 @@
   t
   nil
   "Set the `nixpkgs' flake identifier to a specific branch of Nixpkgs"
-  "r a nixpkgs github:NixOS/nixpkgs/nixos-20.03")
+  "y a nixpkgs github:NixOS/nixpkgs/nixos-20.03")
 
 (define-command registry remove (r)
   "remove flake from user flake registry"
@@ -33,7 +33,7 @@
   t
   nil
   "Remove the `nixpkgs' flake from the registry"
-  "r r nixpkgs")
+  "y r nixpkgs")
 
 (define-command registry pin (p)
   "pin a flake to its current version"
@@ -42,7 +42,7 @@
   t
   nil
   "Pin the `nixpkgs' flake to its most recent revision"
-  "r p nixpkgs")
+  "y p nixpkgs")
 
 (define-command nil registry (y)
   "manipulate the Nix registry"
