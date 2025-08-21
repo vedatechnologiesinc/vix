@@ -76,7 +76,7 @@
   "Build `hello' and `cowsay' from `nixpkgs' flake, leaving two result symlinks"
   "build n#hello n#cowsay")
 
-(define-command nil run ()
+(define-command nil run (r)
   "run a Nix application"
   nil
   t

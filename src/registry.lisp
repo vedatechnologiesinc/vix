@@ -44,7 +44,7 @@
   "Pin the `nixpkgs' flake to its most recent revision"
   "r p nixpkgs")
 
-(define-command nil registry (r)
+(define-command nil registry (y)
   "manipulate the Nix registry"
   "<command>"
   nil
