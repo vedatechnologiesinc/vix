@@ -12,10 +12,10 @@ MAKEFLAGS += --no-builtin-rules
 #———————————————————————————————————————————————————————————————————————————————
 # program head
 
-PROG=vix
-BIN=$(HOME)/bin
-BINARY=$(BIN)/$(PROG)
-SCRIPT=$(PWD)/$(PROG)
+PROG = vix
+BIN = $(HOME)/bin
+BINARY = $(BIN)/$(PROG)
+SCRIPT = "$(PWD)/$(PROG)"
 
 LISP ?= sbcl
 SBCL_FLAGS = --load
