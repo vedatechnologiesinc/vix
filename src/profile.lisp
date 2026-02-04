@@ -12,9 +12,9 @@
   "add a package into a profile"
   "<package>..."
   nil
-  (lambda (cmd)
-    (let* ((args (clingon:command-arguments cmd))
-           (args-prefixed (prefix-nixpkgs args)))
+  (λ (cmd)
+    (with* ((args (clingon:command-arguments cmd))
+            (args-prefixed (prefix-nixpkgs args)))
       (exe "profile" "add" args-prefixed)))
   nil
   "Install packages from Nixpkgs"
@@ -24,8 +24,8 @@
   "add a package into a profile"
   "<package>..."
   nil
-  (lambda (cmd)
-    (let* ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with* ((args (clingon:command-arguments cmd)))
       (exe "profile" "add" args)))
   nil
   "Install a package from Nixpkgs"
@@ -37,8 +37,8 @@
   "remove packages from a profile"
   "<package>..."
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "profile" "remove" args)))
   nil
   "Uninstall a package by name"
@@ -50,8 +50,8 @@
   "upgrade packages using their most recent flake"
   "<package>..."
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "profile" "upgrade" args)))
   nil
   "Upgrade a specific package by name"
@@ -61,8 +61,8 @@
   "list the installed packages"
   ""
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "profile" "list" args)))
   nil
   "List packages installed in the default profile"
@@ -72,8 +72,8 @@
   "roll back to a previous version of a profile"
   ""
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "profile" "rollback" args)))
   nil
   "Roll back your default profile to the previous version"
@@ -85,8 +85,8 @@
   "show all versions of a profile"
   ""
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "profile" "history" args)))
   nil
   "Show the changes between each version of your default profile"
@@ -96,8 +96,8 @@
   "delete non-current versions of a profile"
   ""
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "profile" "wipe-history" args)))
   nil
   "Delete all versions of the default profile older than 30 days"
@@ -107,8 +107,8 @@
   "show the closure difference between each version of a profile"
   ""
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "profile" "diff-closures" args)))
   nil
   "Show what changed between each version of the NixOS system profile"

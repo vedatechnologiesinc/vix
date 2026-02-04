@@ -17,7 +17,7 @@ BIN = $(HOME)/bin
 BINARY = $(BIN)/$(PROG)
 SCRIPT = "$(PWD)/$(PROG)"
 
-LISP ?= sbcl
+LISP ?= lispworks
 SBCL_FLAGS = --load
 LISPWORKS_FLAGS = -build
 LISP_FLAGS =

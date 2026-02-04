@@ -23,8 +23,8 @@
   "run `make' inside a dev shell"
   nil
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "develop" "--command" "make" args)))
   nil
   "Run `make' inside a dev shell"
@@ -34,8 +34,8 @@
   "execute a command inside a dev shell"
   "command..."
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "develop" "--command" args)))
   nil
   "Run `ncdu' inside a dev shell"
@@ -45,9 +45,9 @@
   "search for packages"
   "[-n|<flake>] <package>..."
   t
-  (lambda (cmd)
-    (let* ((args (clingon:command-arguments cmd))
-           (final-args (cons "search" args)))
+  (λ (cmd)
+    (with* ((args (clingon:command-arguments cmd))
+            (final-args (cons "search" args)))
       (apply #'exe final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
@@ -57,9 +57,9 @@
   "search for packages in the `nixpkgs' flake"
   "<package>..."
   nil
-  (lambda (cmd)
-    (let* ((args (clingon:command-arguments cmd))
-           (final-args (list "search" "nixpkgs" (or-args args))))
+  (λ (cmd)
+    (with* ((args (clingon:command-arguments cmd))
+            (final-args (list "search" "nixpkgs" (or-args args))))
       (apply #'exe final-args)))
   nil
   "Search in `nixpkgs' flake for packages named `firefox'"
@@ -163,8 +163,8 @@
   "run a shell in which the specified packages are available"
   nil
   t
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "env" "shell" args)))
   nil
   "Start a shell providing `yt-dlp' from the `nixpkgs' flake"
@@ -194,8 +194,8 @@
   "manipulate a Nix realisation"
   nil
   t
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe "realisation" "info" args)))
   nil
   "Show some information about the realisation of the package `hello'"
@@ -214,8 +214,8 @@
   "run the garbage collector"
   nil
   nil
-  (lambda (cmd)
-    (let ((args (clingon:command-arguments cmd)))
+  (λ (cmd)
+    (with (args (clingon:command-arguments cmd))
       (exe! `("nix-collect-garbage" ,@args))))
   nil
   "Garbage collect"
@@ -227,8 +227,8 @@
   "generate the Zsh completion script"
   ""
   nil
-  (lambda (cmd)
-    (let ((parent (clingon:command-parent cmd)))
+  (λ (cmd)
+    (with (parent (clingon:command-parent cmd))
       (clingon:print-documentation :zsh-completions parent t)))
   nil
   "Generate the Zsh completions of Vix and enable them"
@@ -243,7 +243,7 @@ EOF")
   "print the documentation"
   ""
   nil
-  (lambda (cmd)
+  (λ (cmd)
     (clingon:print-documentation :markdown (clingon:command-parent cmd) t))
   nil
   "Generate the Markdown documentation of Vix and save it to README.md"
@@ -253,12 +253,12 @@ EOF")
   "show the files of a package."
   "<package>"
   nil
-  (lambda (cmd)
-    (let* ((args (clingon:command-arguments cmd))
-           (args-prefixed (prefix-nixpkgs args))
-           (paths (loop :for input :in args-prefixed
-                        :collect (string-trim '(#\Space #\Tab #\Newline)
-                                              (eze "build" input "--print-out-paths" "--no-link")))))
+  (λ (cmd)
+    (with* ((args (clingon:command-arguments cmd))
+            (args-prefixed (prefix-nixpkgs args))
+            (paths (loop :for input :in args-prefixed
+                         :collect (string-trim '(#\Space #\Tab #\Newline)
+                                               (eze "build" input "--print-out-paths" "--no-link")))))
       (loop :for path :in paths :do (exe! `("find" ,path)))))
   nil
   "Show the files that were installed by the `hello' package"

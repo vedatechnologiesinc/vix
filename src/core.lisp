@@ -13,8 +13,8 @@
 
 (def fix-args (&rest args)
   "Return a normalized version of ARGS."
-  (mapcar #'(lambda (arg)
-              (cl-ppcre:regex-replace-all "^n#" arg (cat *default-flake* #\#)))
+  (mapcar (λ (arg)
+            (cl-ppcre:regex-replace-all "^n#" arg (cat *default-flake* #\#)))
           (flatten-list args)))
 
 (def exe! (cmd)
@@ -35,7 +35,7 @@
 
 (def prefix-nixpkg (item)
   "Return a string that is prefixed with `nixpkgs#'."
-  (format nil "nixpkgs#~A" item))
+  (format nil "nixpkgs#~a" item))
 
 (def prefix-nixpkgs (list)
   "Return a new list with `nixpkgs#' prefix."
@@ -46,27 +46,27 @@
 
 (def or-args (args)
   "Return a string separated by #\|, from the list ARGS."
-  (format nil "~{~A~^|~}" args))
+  (format nil "~{~a~^|~}" args))
 
 (def mini-help (&rest args)
   "Return a list suitable for the example usage of a command."
-  (let ((parts (partition args 2)))
+  (with (parts (partition args 2))
     (loop :for (desc usage) :in parts
-          :collect (cons (fmt "~A:" desc) (fmt "~A ~A" +project-name+ usage)))))
+          :collect (cons (fmt "~a:" desc) (fmt "~a ~a" +project-name+ usage)))))
 
 (def- prefix-command (prefix cmd)
   "Return a prefix string for CMD if PREFIX is true."
-  (let ((prefix-string (if prefix (prin1-to-string prefix) "")))
+  (with (prefix-string (if prefix (prin1-to-string prefix) ""))
     (if (¬ (empty-string-p prefix-string))
         (cat prefix-string "/" cmd)
         cmd)))
 
 (defm make-opt (name desc type value &rest rest)
   "Return an option object from NAME."
-  (let* ((%name (eval name))
-         (%char (aref %name 0))
-         (%opt-name (read-cat ":" "opt-" %name))
-         (%desc (if desc desc (fmt "use the `~A' option" %name))))
+  (with* ((%name (eval name))
+          (%char (aref %name 0))
+          (%opt-name (read-cat ":" "opt-" %name))
+          (%desc (if desc desc (fmt "use the `~a' option" %name))))
     `(clingon:make-option
       ,type
       :description ,%desc
@@ -106,8 +106,8 @@
   "Define a function that returns the options for COMMAND."
   (flet ((prefix (command)
            (prefix-command group command)))
-    (let ((%fn (read-cat (prefix command) '/options))
-          (%doc (fmt "Return the options for the `~A' command." command)))
+    (with ((%fn (read-cat (prefix command) '/options))
+           (%doc (fmt "Return the options for the `~a' command." command)))
       `(def- ,%fn ()
          ,%doc
          (append (list) ,@args)))))
@@ -116,20 +116,20 @@
   "Define a handler for COMMAND."
   (flet ((prefix (command)
            (prefix-command group command)))
-    (let ((%fn (read-cat (prefix command) '/handler))
-          (%doc (fmt "The handler for the `~A' command." command)))
+    (with ((%fn (read-cat (prefix command) '/handler))
+           (%doc (fmt "The handler for the `~a' command." command)))
       `(def- ,%fn (cmd)
          ,%doc
-         (let* ((args (clingon:command-arguments cmd))
-                (final-args (append ',command-list args)))
+         (with* ((args (clingon:command-arguments cmd))
+                 (final-args (append ',command-list args)))
            (apply #'exe final-args))))))
 
 (defm define-basic-handler (group command)
   "Define a basic handler for handling COMMAND."
   (flet ((prefix (command)
            (prefix-command group command)))
-    (let ((%fn (read-cat (prefix command) '/handler))
-          (%doc (fmt "The basic handler for the `~A' command." command)))
+    (with ((%fn (read-cat (prefix command) '/handler))
+           (%doc (fmt "The basic handler for the `~a' command." command)))
       `(def- ,%fn (cmd)
          ,%doc
          (if (null args)
@@ -138,7 +138,7 @@
 
 (defm define-sub-commands (name &rest sub-commands)
   "Return a list of subcommands for NAME from ARGS."
-  (let ((%name (read-cat name '/sub-commands)))
+  (with (%name (read-cat name '/sub-commands))
     `(def- ,%name ()
        (list
         ,@(loop :for command :in sub-commands
@@ -162,28 +162,24 @@ ALIASES is a list of alternative names, like `i' for `init'.
 
 DESCRIPTION is the command description that will show up in help.
 
-OPTIONS is the name of the function, that will be called to the program options;
-or T, which means to generate a default set of options.
+OPTIONS is the name of the function, that will be called to the program options; or T, which means to generate a default set of options.
 
-HANDLER is a function object that accepts a single argument that will handle the
-command itself; T to define a handler that accepts a group and (sub) command; or
-NIL to define a basic handler that acts like T, but without the group parameter.
+HANDLER is a function object that accepts a single argument that will handle the command itself; T to define a handler that accepts a group and (sub) command; or NIL to define a basic handler that acts like T, but without the group parameter.
 
-SUB-COMMANDS is T, to indicate that the command being defined will handle
-sub-commands.
+SUB-COMMANDS is T, to indicate that the command being defined will handle sub-commands.
 
 EXAMPLES is a list of description & command-line usage pairs for the command.
 "
   (flet ((prefix (command)
            (prefix-command group command)))
-    (let* ((%group (when group (prin1-downcase group)))
-           (%command-raw (prin1-downcase (get-raw-name command)))
-           (%command (prin1-downcase (get-name command)))
-           (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
-           (%fn (read-cat (prefix %command) '/command))
-           (%options (read-cat (prefix %command) '/options))
-           (%handler (read-cat "#'" (prefix %command) '/handler))
-           (%sub-commands (read-cat (prefix %command) '/sub-commands)))
+    (with* ((%group (when group (prin1-downcase group)))
+            (%command-raw (prin1-downcase (get-raw-name command)))
+            (%command (prin1-downcase (get-name command)))
+            (%aliases (when aliases (mapcar #'prin1-downcase aliases)))
+            (%fn (read-cat (prefix %command) '/command))
+            (%options (read-cat (prefix %command) '/options))
+            (%handler (read-cat "#'" (prefix %command) '/handler))
+            (%sub-commands (read-cat (prefix %command) '/sub-commands)))
       `(progn
          ,(when (eql t options) `(define-options ,group ,command))
          ,(cond
@@ -217,8 +213,8 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
 
 (defm define-main-options (name options)
   "Define a function to return the list of options for the main command."
-  (let* ((%name (prin1-downcase name))
-         (%fn (read-cat %name '/options)))
+  (with* ((%name (prin1-downcase name))
+          (%fn (read-cat %name '/options)))
     `(def ,%fn ()
        "Return the options for the main command."
        (list
@@ -226,8 +222,8 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
 
 (defm define-main-sub-commands (name commands)
   "Define a function to define the sub-commands of main."
-  (let* ((%name (prin1-downcase name))
-         (%fn (read-cat %name '/sub-commands)))
+  (with* ((%name (prin1-downcase name))
+          (%fn (read-cat %name '/sub-commands)))
     `(def ,%fn ()
        (list
         ,@(loop :for command :in commands
@@ -236,10 +232,10 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
 
 (defm define-main-command (options sub-commands)
   "Define a function as the main command."
-  (let* ((%name "main")
-         (%fn (read-cat %name '/command))
-         (%options (read-cat %name '/options))
-         (%sub-commands (read-cat %name '/sub-commands)))
+  (with* ((%name "main")
+          (%fn (read-cat %name '/command))
+          (%options (read-cat %name '/options))
+          (%sub-commands (read-cat %name '/sub-commands)))
     `(progn
        (define-main-options main ,options)
        (define-main-sub-commands main ,sub-commands)
@@ -247,7 +243,7 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
          "Define the main command"
          (clingon:make-command
           :name ,+project-name+
-          :version #.(uiop:read-file-form (make-pathname :directory '(:relative "src") :name "version" :type "lisp"))
+          :version "0.0.0"
           :description ,+project-description+
           :options (,%options)
           :handler #'print-usage
@@ -255,12 +251,12 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
 
 (defm define-main ()
   "Define the main entry point function."
-  (let* ((%name "main")
-         (%command (read-cat %name '/command)))
+  (with* ((%name "main")
+          (%command (read-cat %name '/command)))
     `(def main^vix (&rest args)
        "The main entry point of the program."
        (declare (ignorable args))
-       (let ((app (,%command)))
+       (with (app (,%command))
          (handler-case (clingon:run app)
            (#+sbcl sb-sys:interactive-interrupt
             #+ccl ccl:interrupt-signal-condition
@@ -270,4 +266,4 @@ EXAMPLES is a list of description & command-line usage pairs for the command.
             #+lispworks mp:process-interrupt
             () nil)
            (error (c)
-             (format t "Oof, an unknown error occured:~&~A~&" c)))))))
+             (format t "Oof, an unknown error occured:~&~a~&" c)))))))

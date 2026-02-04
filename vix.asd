@@ -3,9 +3,10 @@
 
 (defsystem #:vix
     :name "vix"
+    :description "A thin wrapper for interacting with the Nix CLI ecosystem."
     :version #.(uiop:read-file-form (make-pathname :directory '(:relative "src") :name "version" :type "lisp"))
-    :description "A program for interacting with the Nix ecosystem"
-    :author "Rommel Martínez <ebzzry@icloud.com>"
+    :author "VEDA Technologies, Inc. <hello@veda-tech.com>"
+    :license "BSD-2-Clause"
     :class :package-inferred-system
     :depends-on (#:marie
                  #:cl-ppcre

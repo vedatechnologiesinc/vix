@@ -3,9 +3,10 @@
 
 (defsystem #:vix-tests
     :name "vix-tests"
-    :version #.(uiop:read-file-form (make-pathname :directory '(:relative "t") :name "version" :type "lisp"))
     :description "Test ASDF file of vix"
-    :author "Rommel Martínez <ebzzry@icloud.com>"
+    :version #.(uiop:read-file-form (make-pathname :directory '(:relative "t") :name "version" :type "lisp"))
+    :author "VEDA Technologies, Inc. <hello@veda-tech.com>"
+    :license "BSD-2-Clause"
     :class :package-inferred-system
     :depends-on (#:fiveam
                  #:marie

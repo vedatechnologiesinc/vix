@@ -17,13 +17,13 @@
 
 (def- rebuild/handler (cmd)
   "Handler for the `rebuild' command."
-  (let* ((args (clingon:command-arguments cmd))
-         (opt-flake (clingon:getopt cmd :opt-flake))
-         (opt-switch (clingon:getopt cmd :opt-switch))
-         (opt-upgrade (clingon:getopt cmd :opt-upgrade))
-         (full-args (append args
-                            (when opt-switch '("switch"))
-                            (when opt-upgrade '("--upgrade")))))
+  (with* ((args (clingon:command-arguments cmd))
+          (opt-flake (clingon:getopt cmd :opt-flake))
+          (opt-switch (clingon:getopt cmd :opt-switch))
+          (opt-upgrade (clingon:getopt cmd :opt-upgrade))
+          (full-args (append args
+                             (when opt-switch '("switch"))
+                             (when opt-upgrade '("--upgrade")))))
     (uiop:os-cond
      ((uiop:os-macosx-p)
       (exe! `("sudo" "darwin-rebuild" "--flake" ,opt-flake ,@full-args)))
